@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/humans/female/Group01/citizen_sheet_rich_2"
+	//"$bumpmap" "models/Humans/female/Group01/citizen_sheet_norm"
+	"$model" 1
+}

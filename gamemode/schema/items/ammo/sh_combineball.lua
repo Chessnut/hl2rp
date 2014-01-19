@@ -1,0 +1,9 @@
+ITEM.name = "Energy Orb Cell"
+ITEM.weight = 0.3
+ITEM.cost = 70
+ITEM.faction = FACTION_OW
+ITEM.desc = "A small cylindrical piece of material with an orange glow."
+ITEM.type = "ar2altfire"
+ITEM.amount = 1
+ITEM.flag = "v"
+ITEM.model = Model("models/items/combine_rifle_ammo01.mdl")

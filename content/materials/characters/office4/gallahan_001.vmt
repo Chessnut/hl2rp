@@ -1,0 +1,13 @@
+"VertexLitGeneric"
+{
+	// Original shader: VertexLitTexture
+	"$basetexture" "characters\office4\gman_sheet_breen2"
+	//"$bumpmap" "characters\office4\gman_sheet_army_sgt_norm"
+	//"$envmap" "env_cubemap"
+	//"$normalmapalphaenvmapmask" "1"
+// -- From here down is new stuff which will only be applied if $phong is set to 1 --
+	//"$phong" "1"
+	//"$phongexponenttexture" "models/$phong/$phong_sheet"
+	//"$phongboost"	"9"
+	//"$phongfresnelranges"	"[0.04 0.4 1]"
+}
