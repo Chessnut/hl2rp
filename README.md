@@ -1,3 +1,5 @@
+__PLEASE NOTE THAT THIS IS CURRENTLY IN BETA AND UPDATES MAY OCCUR OFTEN. CHECK THE COMMITS!__
+
 ## Half-Life 2 Roleplay ##
 
 Half-Life 2 Roleplay is role-play based off the Half-Life 2 game from Valve. The gamemode comes with the standard features you would expect from any ordinary Half-Life 2 Roleplay server. The only difference is some of the *new* features (listed below), it is *free*, and for the NutScript framework (which is also free for [download here](https://github.com/Chessnut/NutScript)).
