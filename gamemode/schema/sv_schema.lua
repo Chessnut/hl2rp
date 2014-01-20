@@ -123,3 +123,5 @@ function SCHEMA:RemovePlayerScanner(client, noSetPos)
 	client:SetViewEntity(client)
 	client:AllowFlashlight(true)
 end
+
+nut.util.Include("sv_hooks.lua")

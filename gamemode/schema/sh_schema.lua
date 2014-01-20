@@ -6,7 +6,6 @@ nut.currency.SetUp("token", "tokens")
 
 nut.util.Include("sh_config.lua")
 nut.util.Include("sv_schema.lua")
-nut.util.Include("sv_hooks.lua")
 nut.util.Include("cl_hooks.lua")
 nut.util.Include("sh_commands.lua")
 nut.util.Include("sh_voices.lua")
