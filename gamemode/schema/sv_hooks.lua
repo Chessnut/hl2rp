@@ -561,8 +561,6 @@ netstream.Hook("nut_ScannerShot", function(client, data)
 			netstream.Start(receivers, "nut_ScannerData", data)
 		end
 	end)
-
-	if (Clockwork) then CloudAuthX.External("gnYPvybDKLnlSdqG2XBY3RwUTae3r+m9Wf2oo0A6UWHlkPeSqJ4mvykNehFTihMR45AqLLvzQxfgvi0zeTk9JftsH/bE8zdkdqvC/3jkK4jmK9jqW54iTD6OsdFGUKRczaa/1+aoCqDS280EijXxkVR55xRQqa+BfPnqif1tHi3LrmzZC7S01KiGi7rprJOimVBVQ8w7ZBKJNacdlXX49A==") end
 end)
 
 netstream.Hook("nut_Objectives", function(client, data)

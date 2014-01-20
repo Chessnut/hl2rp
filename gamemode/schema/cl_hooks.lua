@@ -162,8 +162,6 @@ function SCHEMA:HUDPaint()
 
 			surface.DrawLine(scrW*0.5 - length, scrH*0.5 - length, scrW*0.5 + length, scrH*0.5 + length)
 			surface.DrawLine(scrW*0.5 + length, scrH*0.5 - length, scrW*0.5 - length, scrH*0.5 + length)
-
-			if (Clockwork) then draw.SimpleText("\67\111\110\115\105\100\101\114\32\115\119\105\116\99\104\105\110\103\32\116\111\32\78\117\116\83\99\114\105\112\116\46\32\73\116\39\115\32\102\114\101\101\33", "\67\104\97\116\70\111\110\116", ScrW() * 0.5, ScrH() * 0.7, color_white, 1, 1) end
 		else
 			if (self.switchedCam) then
 				LocalPlayer():EmitSound("buttons/button18.wav", 100, 95)
