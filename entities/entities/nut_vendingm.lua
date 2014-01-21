@@ -238,7 +238,7 @@ else
 				local color = color_green
 
 				if (self:GetNetVar("active") != false) then
-					if (stocks and stocks[k] < 1) then
+					if (stocks and stocks[k] and stocks[k] < 1) then
 						color = color_red
 						color.a = 200
 					end
