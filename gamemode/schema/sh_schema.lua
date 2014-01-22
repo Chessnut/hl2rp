@@ -45,9 +45,11 @@ do
 			local item = self:GetItem("cid")
 
 			if (item and item.data) then
-				return item.data.Digits or "ERROR"
+				return item.data.Digits or "UNKNOWN"
 			end
 		end
+	
+		return "UNKNOWN"
 	end
 
 	function playerMeta:IsCombineRank(rank)
