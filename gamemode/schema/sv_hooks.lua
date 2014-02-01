@@ -420,7 +420,7 @@ function SCHEMA:LoadLocks()
 	for k, v in pairs(nut.util.ReadTable("locks")) do
 		local door
 
-		for k, v in pairs(ents.FindInSphere(v.pos, 8)) do
+		for k, v in pairs(ents.FindInSphere(v.pos, 10)) do
 			if (v:IsDoor()) then
 				door = v
 
@@ -514,13 +514,19 @@ nut.char.HookVar("charname", "nut_CharRankModel", function(character)
 		local class = nut.class.Get(index)
 
 		if (class) then
-			local model = class:GetModel(client)
-			local skin = class:GetSkin(client)
+			timer.Simple(0.1, function()
+				if (!IsValid(client)) then
+					return
+				end
 
-			client.character.model = model
-			client.character.skin = skin
-			client:SetSkin(skin)
-			client:SetModel(model)
+				local model = class:GetModel(client)
+				local skin = class:GetSkin(client)
+
+				client.character.model = model
+				client.character.skin = skin
+				client:SetSkin(skin)
+				client:SetModel(model)
+			end)
 		end
 	end
 end)
