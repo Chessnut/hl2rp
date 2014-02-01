@@ -6,10 +6,10 @@ function CLASS:PlayerCanJoin(client)
 end
 
 function CLASS:PlayerGetModel(client)
-	if (client:IsCombineRank("OfC.")) then
-		return nut.config.cpRankModels["OfC"]
-	elseif (client:IsCombineRank(nut.config.cpUnitRanks)) then
-		return nut.config.cpRankModels[nut.config.cpUnitRanks]
+	for k, v in ipairs(nut.config.cpRankModels) do
+		if (client:IsCombineRank(v[1])) then
+			return v[2]
+		end
 	end
 end
 

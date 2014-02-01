@@ -94,9 +94,6 @@ do
 			return false
 		end
 	end
-
-	if (CLIENT) then
-	end
 end
 
 nut.chat.Register("dispatch", {
@@ -153,8 +150,8 @@ nut.chat.Register("request", {
 })
 
 for k, v in pairs(nut.config.cpRankModels) do
-	nut.anim.SetModelClass("metrocop", v)
-	util.PrecacheModel(v)
+	nut.anim.SetModelClass("metrocop", v[2])
+	util.PrecacheModel(v[2])
 end
 
 function SCHEMA:PlayerCanEditObjectives(client)

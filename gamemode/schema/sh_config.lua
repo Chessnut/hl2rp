@@ -25,12 +25,14 @@ nut.config.objRanks = {"EpU.", "DvL.", "SeC."}
 -- The default player data when the Combine sees it.
 nut.config.defaultData = "Points: 0"
 
+-- The models for Civil Protection ranks. The models are checked in order, so
+-- place your ranks in order!
 nut.config.cpRankModels = {
-	["SeC"] = "models/dpfilms/metropolice/phoenix_police.mdl",
-	["DvL"] = "models/dpfilms/metropolice/blacop.mdl",
-	["EpU"] = "models/dpfilms/metropolice/elite_police.mdl",
-	["OfC"] = "models/dpfilms/metropolice/policetrench.mdl",
-	[nut.config.cpUnitRanks] = "models/dpfilms/metropolice/hl2concept.mdl"
+	{"SeC", "models/dpfilms/metropolice/phoenix_police.mdl"},
+	{"DvL", "models/dpfilms/metropolice/blacop.mdl"},
+	{"EpU", "models/dpfilms/metropolice/elite_police.mdl"},
+	{"OfC", "models/dpfilms/metropolice/policetrench.mdl"},
+	{nut.config.cpUnitRanks, "models/dpfilms/metropolice/hl2concept.mdl"}
 }
 
 -- Overwrite the default NutScript configs here for our schema.
