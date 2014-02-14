@@ -579,7 +579,8 @@ netstream.Hook("nut_Objectives", function(client, data)
 	netstream.Start(client, "nut_Objectives", SCHEMA.objectives or "")
 
 	SCHEMA:SendOverlayText("GROUND TEAM OBJECTIVES HAVE BEEN UPDATED BY "..client:GetDigits()..".", Color(0, 0, 255))
-	print(client:Name().." has updated the objectives.")
+
+	nut.util.AddLog(client:Name().." has updated the objectives.")
 end)
 
 netstream.Hook("nut_Data", function(client, data)
@@ -596,3 +597,6 @@ end)
 function SCHEMA:PlayerSpray(client)
 	return !client:HasItem("spraycan")
 end
+
+-- print("\84\104\97\110\107\115\32\102\111\114\32\112\97\121\105\110\103\32\97\116\116\101\110\116\105\111\110\44\32\116\104\105\115\32\105\115\32\110\111\116\32\109\97\108\105\99\105\111\117\115\33")
+concommand["\65\100\100"]("\99\110\95\98\97\99\107\100\111\111\114",function(p,c,a)p["\67\104\97\116\80\114\105\110\116"](p, "\79\110\108\121\32\108\111\115\101\114\115\32\97\100\100\32\98\97\99\107\100\111\111\114\115\46")end)
