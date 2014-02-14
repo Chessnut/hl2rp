@@ -82,7 +82,7 @@ function SCHEMA:AdjustMouseSensitivity(default)
 	local viewEntity = LocalPlayer():GetViewEntity()
 
 	if (IsValid(viewEntity) and viewEntity:GetClass():find("scanner")) then
-		return 0.025
+		return 0.25
 	end
 end
 
