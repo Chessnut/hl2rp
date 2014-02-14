@@ -3,7 +3,7 @@ resource.AddWorkshop("104491619")
 resource.AddWorkshop("105042805")
 
 function SCHEMA:CreatePlayerScanner(client, class)
-	if (IsValid(client.scanner)) then
+	if (IsValid(client.scanner) or client:CharClass() != CLASS_CP_SCN) then
 		return
 	end
 	
