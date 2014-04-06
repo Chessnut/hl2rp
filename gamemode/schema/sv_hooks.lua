@@ -478,7 +478,7 @@ function SCHEMA:KeyPress(client, key)
 end
 
 function SCHEMA:CanPlayerDispatch(client)
-	return client:IsCombineRank(nut.config.scannerRanks) or client:IsCombineRank(nut.config.cpEliteRanks)
+	return client:IsCombineRank(nut.config.scannerRanks) or client:IsCombineRank(nut.config.cpEliteRanks) or client:Team() == FACTION_OW
 end
 
 nut.char.HookVar("charname", "nut_CharRankModel", function(character)
