@@ -337,10 +337,6 @@ function SCHEMA:PlayerLoadout(client)
 	if (client:Team() == FACTION_CP) then
 		client:Give("nut_stunstick")
 	end
-	
-	if (client:Team() == FACTION_OW) then
-		client:Give("nut_stunstick")
-	end
 end
 
 function SCHEMA:LoadData()
