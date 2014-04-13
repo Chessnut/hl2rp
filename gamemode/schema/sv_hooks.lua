@@ -319,9 +319,8 @@ function SCHEMA:GetDefaultInv(inventory, client, data)
 			inventory:Add("weapon_smg1", 1, {Equipped = false, CombineLocked = 0, ClipOne = 45})
 			inventory:Add("ammo_smg", 5)
 			inventory:Add("weapon_frag", 1, {Equipped = false, CombineLocked = 0, ClipOne = -1})
+			inventory:Add("health_vial", 2)		
 		end
-
-		inventory:Add("health_vial", 1)
 	end
 end
 
