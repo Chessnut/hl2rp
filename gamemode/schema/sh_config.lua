@@ -23,7 +23,16 @@ nut.config.defaultInvWeight = 7.5
 -- The rank(s) that are allowed to edit the objectives.
 nut.config.objRanks = {"EpU.", "DvL.", "SeC."}
 -- The default player data when the Combine sees it.
-nut.config.defaultData = "Points: 0"
+nut.config.defaultData = [[
+Citizens' Name:
+----------------------
+Personal Citizen ID:
+----------------------
+Points:
+----------------------
+Loyalty Points:
+----------------------
+]];
 
 -- The models for Civil Protection ranks. The models are checked in order, so
 -- place your ranks in order!
