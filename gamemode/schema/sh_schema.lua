@@ -11,7 +11,7 @@ nut.util.Include("sh_commands.lua")
 nut.util.Include("sh_voices.lua")
 
 function SCHEMA:IsCombineFaction(faction)
-	return faction == FACTION_CP or faction == FACTION_OW
+ 	return faction == FACTION_CP or faction == FACTION_OW or faction == FACTION_ADMIN
 end
 
 -- Player extensions here.
