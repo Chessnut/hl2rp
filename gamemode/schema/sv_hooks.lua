@@ -314,11 +314,11 @@ function SCHEMA:GetDefaultInv(inventory, client, data)
 			})
 		end
 		
-	if (data.faction == FACTION_CP or data.faction == FACTION_OW) then
+		if (data.faction == FACTION_CP or data.faction == FACTION_OW) then
 			inventory:Add("flashlight", 1)
 		end	
 			
-	if (data.faction == FACTION_OW) then
+		if (data.faction == FACTION_OW) then
 			inventory:Add("weapon_smg1", 1, {Equipped = false, CombineLocked = 0, ClipOne = 45})
 			inventory:Add("ammo_smg", 5)
 			inventory:Add("weapon_frag", 1, {Equipped = false, CombineLocked = 0, ClipOne = -1})
