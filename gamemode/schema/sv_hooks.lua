@@ -307,21 +307,24 @@ function SCHEMA:GetDefaultInv(inventory, client, data)
 			Digits = data.chardata.digits
 		})
 		inventory:Add("suitcase", 1)
-	elseif (data.faction == FACTION_CP or data.faction == FACTION_OW) then
+	elseif (data.faction == FACTION_CP or data.faction == FACTION_OW or data.faction == FACTION_ADMIN) then
 		if (nut.item.Get("radio")) then
 			inventory:Add("radio", 1, {
 				Freq = nut.config.radioFreq
 			})
-			inventory:Add("weapon_pistol", 1, { Equipped = false, CombineLocked = 0, ClipOne = 18 })
 		end
-
+		
+		if (data.faction == FACTION_CP or data.faction == FACTION_OW) then
+			inventory:Add("flashlight", 1)
+		end	
+			
 		if (data.faction == FACTION_OW) then
-			inventory:Add("weapon_ar2", 1, { Equipped = false, CombineLocked = 1, ClipOne = 30 })
-			inventory:Add("ammo_ar2", 2)
-			inventory:Add("ammo_combineball", 1)
+			inventory:Add("weapon_smg1", 1, {Equipped = false, CombineLocked = 0, ClipOne = 45})
+			inventory:Add("ammo_smg", 5)
+			inventory:Add("weapon_frag", 1, {Equipped = false, CombineLocked = 0, ClipOne = -1})
+			inventory:Add("health_vial", 2)
+			inventory:Add("bag", 1)
 		end
-
-		inventory:Add("ammo_pistol")
 	end
 end
 
