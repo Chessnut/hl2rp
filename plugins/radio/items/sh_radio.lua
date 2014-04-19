@@ -3,6 +3,7 @@ ITEM.uniqueID = "radio"
 ITEM.category = "Communication"
 ITEM.model = Model("models/dpfilms/metropolice/props/metrold_radio.mdl")
 ITEM.desc = "A radio with its frequency set to %Freq|nothing%.\nThis radio is currently %On|off%."
+ITEM.price = 50
 ITEM.functions = {}
 ITEM.functions.Toggle = {
 	tip = "Turns the radio on or off.",
