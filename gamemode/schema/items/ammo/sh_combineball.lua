@@ -1,6 +1,6 @@
 ITEM.name = "Energy Orb Cell"
 ITEM.weight = 0.3
-ITEM.cost = 70
+ITEM.price = 70
 ITEM.faction = FACTION_OW
 ITEM.desc = "A small cylindrical piece of material with an orange glow."
 ITEM.type = "ar2altfire"
