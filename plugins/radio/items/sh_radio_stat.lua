@@ -1,6 +1,7 @@
 ITEM.name = "Stationary Radio"
 ITEM.uniqueID = "radio_stat"
 ITEM.desc = "A green radio with dials."
+ITEM.price = 65
 ITEM.model = Model("models/props_lab/citizenradio.mdl")
 ITEM.category = "Communication"
 ITEM.functions = {}
