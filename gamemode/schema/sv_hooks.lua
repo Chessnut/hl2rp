@@ -313,11 +313,11 @@ function SCHEMA:GetDefaultInv(inventory, client, data)
 				Freq = nut.config.radioFreq
 			})
 		end
-		
+
 		if (data.faction == FACTION_CP or data.faction == FACTION_OW) then
 			inventory:Add("flashlight", 1)
 		end	
-			
+
 		if (data.faction == FACTION_OW) then
 			inventory:Add("weapon_smg1", 1, {Equipped = false, CombineLocked = 0, ClipOne = 45})
 			inventory:Add("ammo_smg", 5)
@@ -513,19 +513,13 @@ nut.char.HookVar("charname", "nut_CharRankModel", function(character)
 		local class = nut.class.Get(index)
 
 		if (class) then
-			timer.Simple(0.1, function()
-				if (!IsValid(client)) then
-					return
-				end
+			local model = class:GetModel(client)
+			local skin = class:GetSkin(client)
 
-				local model = class:GetModel(client)
-				local skin = class:GetSkin(client)
-
-				client.character.model = model
-				client.character.skin = skin
-				client:SetSkin(skin)
-				client:SetModel(model)
-			end)
+			client.character.model = model
+			client.character.skin = skin
+			client:SetSkin(skin)
+			client:SetModel(model)
 		end
 	end
 end)
