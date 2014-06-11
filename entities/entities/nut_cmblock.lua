@@ -25,8 +25,11 @@ function ENT:SpawnFunction(client, trace)
 	entity:Spawn()
 	entity:Activate()
 
-	if (IsValid(trace.Entity) and trace.Entity:IsDoor()) then
-		entity:SetDoor(trace.Entity, trace.HitPos, trace.HitNormal:Angle())
+	local angles = trace.HitNormal:Angle()
+	local entity2 = trace.Entity
+
+	if (IsValid(entity2) and entity2:IsDoor()) then
+		entity:SetDoor(entity2, trace.HitPos, angles)
 	end
 
 	return entity
@@ -98,7 +101,7 @@ if (SERVER) then
 		end
 	end
 
-	function ENT:SetDoor(door, position, angles)
+	function ENT:SetDoor(door, position, angles, fromSave)
 		if (!IsValid(door)) then
 			return
 		end
@@ -111,7 +114,10 @@ if (SERVER) then
 		end
 
 		angles = angles or door:GetAngles()
-		angles:RotateAroundAxis(angles:Up(), 270)
+
+		if (!fromSave) then
+			angles:RotateAroundAxis(angles:Up(), 270)
+		end
 
 		local index = door:LookupBone("handle")
 

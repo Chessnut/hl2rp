@@ -407,7 +407,8 @@ function SCHEMA:SaveLocks()
 			data[#data + 1] = {
 				pos = v.door:GetPos(),
 				realPos = v:GetPos(),
-				locked = v:GetLocked()
+				locked = v:GetLocked(),
+				angles = v:GetAngles()
 			}
 		end
 	end
@@ -434,7 +435,7 @@ function SCHEMA:LoadLocks()
 			lock:Spawn()
 			lock:Activate()
 			lock:ToggleLock(v.locked)
-			lock:SetDoor(door, v.realPos)
+			lock:SetDoor(door, v.realPos, v.angles, true)
 		end
 	end
 end
