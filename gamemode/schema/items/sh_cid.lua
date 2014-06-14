@@ -1,7 +1,8 @@
 ITEM.name = "Citizen ID Card"
 ITEM.model = Model("models/gibs/metal_gib4.mdl")
 ITEM.desc = "An ID card with the digits %Digits|00000% assigned to %Name|no one%."
-ITEM.noBusiness = true
+ITEM.faction = {FACTION_CP, FACTION_ADMIN}
+ITEM.price = 10
 
 function ITEM:GetDesc(data)
 	data = data or {Digits = "00000", Name = "no one"}

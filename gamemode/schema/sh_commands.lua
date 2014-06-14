@@ -51,3 +51,47 @@ nut.command.Register({
 		end
 	end
 }, "data")
+
+nut.command.Register({
+	onRun = function(client, arguments)
+		if (!client:IsCombine()) then return nut.util.Notify("You are not the Combine!") end
+
+		local digits = nut.util.GetRandomNum(5)
+		local items = client:GetItemsByClass("cid")
+		local index
+
+		for k, v in pairs(items) do
+			if (!v.data or (!v.data.Name and !v.data.Digits)) then
+				index = k
+
+				break
+			end
+		end
+
+		if (!index) then return nut.util.Notify("You do not have a blank identification card.", client) end
+
+		local data = {}
+			data.start = client:GetShootPos()
+			data.endpos = data.start + client:GetAimVector()*96
+			data.filter = client
+		local trace = util.TraceLine(data)
+		local entity = trace.Entity
+
+		if (IsValid(entity) and entity:IsPlayer()) then
+			if (entity:Team() == FACTION_CITIZEN) then
+				entity:UpdateInv("cid", 1, {
+					Name = entity:Name(),
+					Digits = digits
+				})
+				client:UpdateInv("cid", -1, {})
+
+				nut.util.Notify("You have assigned "..entity:Name().." a new identification card.", client)
+				nut.util.Notify(client:Name().." has assigned you a new identification card.", entity)
+			else
+				nut.util.Notify("This player is not a citizen.", client)
+			end
+		else
+			nut.util.Notify("You are not looking at a valid player.", client)
+		end
+	end
+}, "assign")
