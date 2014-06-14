@@ -55,7 +55,7 @@ if (SERVER) then
 			return
 		end
 
-		if (!activator:IsCombine()) then
+		if (!activator:IsCombine() and activator:Team() != FACTION_ADMIN) then
 			self:Error()
 
 			return
@@ -93,9 +93,12 @@ if (SERVER) then
 			end
 		else
 			self:EmitSound("buttons/combine_button2.wav")
+
+			self.door:Fire("close")
 			self.door:Fire("lock")
 
 			for k, v in pairs(self.door:GetDoorPartner()) do
+				v:Fire("close")
 				v:Fire("lock")
 			end
 		end

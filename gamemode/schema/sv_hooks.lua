@@ -143,12 +143,20 @@ function SCHEMA:PrePlayerSay(client, text, mode, listeners)
 	end
 end
 
+function SCHEMA:PlayerUse(client, entity)
+	if (client:IsCombine()) then
+		if (client:KeyDown(IN_SPEED) and IsValid(entity.lock)) then
+			return false
+		end
+	end
+end
+
 function SCHEMA:PlayerUseDoor(client, entity)
 	if (client:IsCombine()) then
 		if (client:KeyDown(IN_SPEED) and IsValid(entity.lock)) then
 			entity.lock:ToggleLock()
 
-			return true
+			return false
 		end
 
 		if (!entity:HasSpawnFlags(256) and !entity:HasSpawnFlags(1024)) then
