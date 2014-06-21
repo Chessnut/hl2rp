@@ -87,6 +87,14 @@ function SCHEMA:PlayerLostStamina(client)
 end
 
 function SCHEMA:PlayerSpawn(client)
+	if (client:IsCombine()) then
+		if (client:Team() == FACTION_CP) then
+			client:SetArmor(50)
+		else
+			client:SetArmor(100)
+		end
+	end
+
 	self:RemovePlayerScanner(client, true)
 end
 

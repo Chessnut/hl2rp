@@ -101,11 +101,13 @@ function SWEP:PrimaryAttack()
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
 	self.Owner:ViewPunch(Angle(1, 0, 0.125))
 
-	local data = {}
-		data.start = self.Owner:GetShootPos()
-		data.endpos = data.start + self.Owner:GetAimVector()*72
-		data.filter = self.Owner
-	local trace = util.TraceLine(data)
+	self.Owner:LagCompensation(true)
+		local data = {}
+			data.start = self.Owner:GetShootPos()
+			data.endpos = data.start + self.Owner:GetAimVector()*72
+			data.filter = self.Owner
+		local trace = util.TraceLine(data)
+	self.Owner:LagCompensation(false)
 
 	if (SERVER and trace.Hit) then
 		if (self:GetActivated()) then
@@ -136,6 +138,12 @@ function SWEP:PrimaryAttack()
 
 					return
 				end
+			elseif (entity:IsRagdoll()) then
+				if (self:GetActivated()) then
+					damage = 2
+				else
+					damage = 20
+				end
 			end
 
 			local damageInfo = DamageInfo()
@@ -155,14 +163,16 @@ function SWEP:OnLowered()
 end
 
 function SWEP:SecondaryAttack()
-	local data = {}
-		data.start = self.Owner:GetShootPos()
-		data.endpos = data.start + self.Owner:GetAimVector()*72
-		data.filter = self.Owner
-		data.mins = Vector(-8, -8, -30)
-		data.maxs = Vector(8, 8, 10)
-	local trace = util.TraceHull(data)
-	local entity = trace.Entity
+	self.Owner:LagCompensation(true)
+		local data = {}
+			data.start = self.Owner:GetShootPos()
+			data.endpos = data.start + self.Owner:GetAimVector()*72
+			data.filter = self.Owner
+			data.mins = Vector(-8, -8, -30)
+			data.maxs = Vector(8, 8, 10)
+		local trace = util.TraceHull(data)
+		local entity = trace.Entity
+	self.Owner:LagCompensation(false)
 
 	if (SERVER and IsValid(entity)) then
 		local pushed

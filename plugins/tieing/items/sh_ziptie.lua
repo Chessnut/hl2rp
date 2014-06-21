@@ -17,7 +17,11 @@ ITEM.functions.Use = {
 		local trace = util.TraceLine(data)
 		local target = trace.Entity
 
-		if (IsValid(target)) then
+		if (target:GetNetVar("player")) then
+			target = target:GetNetVar("player")
+		end
+		
+		if (IsValid(target) and target:IsPlayer()) then
 			if (target:GetNutVar("beingTied") or target:GetNutVar("beingUnTied")) then
 				nut.util.Notify("You can not tie this player right now.", client)
 
