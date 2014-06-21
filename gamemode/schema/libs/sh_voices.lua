@@ -56,7 +56,7 @@ function nut.voice.Play(client, class, text, delay, noSound, global, volume)
 end
 
 if (CLIENT) then
-	hook.Add("BuildHelpOptions", "nut_CommandHelp", function(data, tree)
+	hook.Add("BuildHelpOptions", "nut_VoiceHelp", function(data, tree)
 		local categories = {}
 		local contents = {}
 
