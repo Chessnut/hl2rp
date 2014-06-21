@@ -50,3 +50,30 @@ function nut.voice.Play(client, class, text, delay, noSound, global, volume)
 
 	return nil, 0.1
 end
+
+if (CLIENT) then
+	hook.Add("BuildHelpOptions", "nut_CommandHelp", function(data, tree)
+		local categories = {}
+		local contents = {}
+
+		data:AddHelp("Voices", function(tree)
+			return "Click on a sub-category to see specific voices."
+		end, "icon16/sound.png")
+
+		data:AddCallback("Voices", function(node, body)
+			for k, v in SortedPairs(nut.voice.buffer) do
+				local name = k:sub(1, 1):upper()..k:sub(2)
+				local category = node:AddNode(name)
+				local html = ""
+
+				for k, v in SortedPairs(v) do
+					html = html.."<p><b>"..k:upper().."</b><br />"..v.replacement.."</p>"
+				end
+
+				category.DoClick = function()
+					body:SetContents(html)
+				end
+			end
+		end)
+	end)
+end

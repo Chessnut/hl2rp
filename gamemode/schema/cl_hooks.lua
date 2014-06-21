@@ -24,6 +24,36 @@ function SCHEMA:DoSchemaIntro()
 	end)
 end
 
+function SCHEMA:CreateQuickMenu(panel)
+	local button = panel:Add("DButton")
+	button:Dock(TOP)
+	button:SetText("Quick Voice >>")
+	button:SetTextColor(Color(5, 5, 5))
+	button:SetFont("nut_TargetFontSmall")
+	button:SetTall(28)
+	button.DoClick = function()
+		local menu = DermaMenu()
+			for k, v in SortedPairs(nut.voice.buffer) do
+				if (k == "dispatch" and !self:CanPlayerDispatch()) then continue end
+				if (k == "combine" and !LocalPlayer():IsCombine()) then continue end
+
+				local name = k:sub(1, 1):upper()..k:sub(2)
+				local subMenu = menu:AddSubMenu(name)
+				subMenu:SetMaxHeight(480)
+
+				for k2, v2 in SortedPairs(v) do
+					local option = subMenu:AddOption(k2:sub(1, 1):upper()..k2:sub(2), function()
+						if (k == "dispatch") then k2 = "/dispatch "..k2 end
+
+						RunConsoleCommand("say", k2)
+					end)
+					option:SetToolTip(v2.replacement)
+				end
+			end
+		menu:Open()
+	end
+end
+
 SCHEMA.deltaColor = SCHEMA.deltaColor or 0
 SCHEMA.color = SCHEMA.color or 0
 SCHEMA.deltaBlur = SCHEMA.deltaBlur or 0

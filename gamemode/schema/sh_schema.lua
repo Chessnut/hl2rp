@@ -14,6 +14,12 @@ function SCHEMA:IsCombineFaction(faction)
  	return faction == FACTION_CP or faction == FACTION_OW
 end
 
+function SCHEMA:CanPlayerDispatch(client)
+	if (CLIENT and !client) then client = LocalPlayer() end
+	
+	return client:IsCombineRank(nut.config.scannerRanks) or client:IsCombineRank(nut.config.cpEliteRanks) or client:Team() == FACTION_OW
+end
+
 -- Player extensions here.
 do
 	local playerMeta = FindMetaTable("Player")
