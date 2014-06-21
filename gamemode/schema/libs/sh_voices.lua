@@ -24,7 +24,9 @@ function nut.voice.Play(client, class, text, delay, noSound, global, volume)
 
 			nut.voice.lengthCache[source] = nut.voice.lengthCache[source] or SoundDuration(source)
 
-			if (!noSound) then
+			local shouldPlaySound = !noSound and client:GetNutVar("nextVoice", 0) < CurTime()
+
+			if (shouldPlaySound) then
 				if (delay > 0) then
 					timer.Simple(delay, function()
 						if (!IsValid(client)) then return end
@@ -42,9 +44,11 @@ function nut.voice.Play(client, class, text, delay, noSound, global, volume)
 						client:EmitSound(source, volume)
 					end
 				end
+
+				client:SetNutVar("nextVoice", CurTime() + nut.config.voiceCmdDelay)
 			end
 
-			return info.replacement, nut.voice.lengthCache[source] or 0.1, source
+			return info.replacement, shouldPlaySound and nut.voice.lengthCache[source] or 0.1, source
 		end
 	end
 

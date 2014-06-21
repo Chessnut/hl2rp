@@ -24,15 +24,11 @@ nut.config.defaultInvWeight = 7.5
 nut.config.objRanks = {"EpU.", "DvL.", "SeC."}
 -- The default player data when the Combine sees it.
 nut.config.defaultData = [[
-Citizens' Name:
-----------------------
-Personal Citizen ID:
-----------------------
+Name:
 Points:
-----------------------
-Loyalty Points:
-----------------------
-]];
+]]
+-- The delay in second(s) between voice commands.
+nut.config.voiceCmdDelay = 1
 
 -- The models for Civil Protection ranks. The models are checked in order, so
 -- place your ranks in order!
