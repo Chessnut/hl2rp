@@ -409,7 +409,7 @@ function SCHEMA:CreateScannerImage(data)
 end
 
 function SCHEMA:IsPlayerRecognized(client)
-	if (client:IsCombine()) then
+	if (client:IsCombine() or client:Team() == FACTION_ADMIN) then
 		return true
 	end
 end
