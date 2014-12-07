@@ -1,3 +1,2 @@
+AddCSLuaFile("cl_init.lua")
 DeriveGamemode("nutscript")
-
-nut.schema.Init()

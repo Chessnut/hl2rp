@@ -1,8 +1,7 @@
-"Gamemode"
+"sample"
 {
-	"base"			"nutscript"
-	"title"			"HL2RP"
-	"author"		"Chessnut"
+	"base"		"nutscript"
+	"title"		"HL2 RP"
+	"author"	"Chessnut"
 	"menusystem"	"1"
-	"maps"			"^rp_"
 }

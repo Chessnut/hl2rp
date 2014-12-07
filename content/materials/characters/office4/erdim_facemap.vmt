@@ -1,6 +1,0 @@
-"VertexLitGeneric"
-{
-	// Original shader: VertexLitTexture
-	"$basetexture" "characters\office4/erdim_facemap"
-	"$halflambert" 1
-}
