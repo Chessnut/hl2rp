@@ -54,3 +54,33 @@ SCHEMA.painSounds[FACTION_OW] = {
 	"npc/combine_soldier/pain2.wav",
 	"npc/combine_soldier/pain3.wav"
 }
+
+-- Civil Protection name prefix.
+SCHEMA.cpPrefix = "CP-"
+
+-- How long the Combine digits are.
+SCHEMA.digitsLen = 5
+
+-- Rank information.
+SCHEMA.rctRanks = {"RCT"}
+SCHEMA.unitRanks = {"05", "04", "03", "02", "01", "OfC"}
+SCHEMA.eliteRanks = {"EpU", "DvL", "SeC"}
+SCHEMA.scnRanks = {"SCN", "CLAW.SCN"}
+
+-- What model each rank should be.
+SCHEMA.rankModels = {
+	["RCT"] = "models/police.mdl",
+	[SCHEMA.unitRanks] = "models/dpfilms/metropolice/hl2concept.mdl",
+	["OfC"] = "models/dpfilms/metropolice/policetrench.mdl",
+	["EpU"] = "models/dpfilms/metropolice/elite_police.mdl",
+	["DvL"] = "models/dpfilms/metropolice/blacop.mdl",
+	["SeC"] = "models/dpfilms/metropolice/phoenix_police.mdl",
+	["SCN"] = "models/combine_scanner.mdl",
+	["CLAW.SCN"] = "models/shield_scanner.mdl"
+}
+
+-- The default player data when using /data
+SCHEMA.defaultData = [[
+Points:
+Infractions:
+]]

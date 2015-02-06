@@ -1,7 +1,7 @@
 function SCHEMA:PlayerFootstep(client, position, foot, soundName, volume)
 	if (client:isRunning()) then
 		if (client:Team() == FACTION_CP) then
-			client:EmitSound("npc/metropolice/gear"..math.random(1, 6)..".wav", volume * 100)
+			client:EmitSound("npc/metropolice/gear"..math.random(1, 6)..".wav", volume * 130)
 
 			return true
 		elseif (client:Team() == FACTION_OW) then
@@ -12,19 +12,55 @@ function SCHEMA:PlayerFootstep(client, position, foot, soundName, volume)
 	end
 end
 
-function SCHEMA:PlayerSpawn(client)
+function SCHEMA:OnCharCreated(client, character)
+	local inventory = character:getInv()
+
+	if (inventory) then		
+		if (character:getFaction() == FACTION_CITIZEN) then
+			inventory:add("cid", 1, {
+				name = character:getName(),
+				id = math.random(10000, 99999)
+			})
+		elseif (self:isCombineFaction(character:getFaction())) then
+			inventory:add("radio", 1)
+		end
+	end
+end
+
+function SCHEMA:LoadData()
+	self:loadVendingMachines()
+	self:loadDispensers()
+end
+
+function SCHEMA:SaveData()
+	self:saveVendingMachines()
+	self:saveDispensers()
+end
+
+function SCHEMA:PostPlayerLoadout(client)
 	if (client:isCombine()) then
 		if (client:Team() == FACTION_CP) then
+			for k, v in ipairs(nut.class.list) do
+				if (client:getChar():joinClass(k)) then
+					break
+				end
+			end
+
+			hook.Run("PlayerRankChanged", client)
+
 			client:SetArmor(50)
+			client:Give("nut_stunstick")
 		else
 			client:SetArmor(100)
 		end
 
-		timer.Simple(2.5, function()
-			if (IsValid(client)) then
-				client:addDisplay("Local unit protection measures active at "..client:Armor().."%")
-			end
-		end)
+		client:addDisplay("Local unit protection measures active at "..client:Armor().."%")
+	end
+end
+
+function SCHEMA:CanPlayerViewData(client, target)
+	if (client:isCombine()) then
+		return true
 	end
 end
 
@@ -39,6 +75,26 @@ end
 function SCHEMA:PlayerSwitchFlashlight(client, enabled)
 	if (client:isCombine()) then
 		return true
+	end
+end
+
+function SCHEMA:PlayerRankChanged(client)
+	for k, v in pairs(self.rankModels) do
+		if (client:isCombineRank(k)) then
+			client:SetModel(v)
+		end
+	end
+end
+
+function SCHEMA:OnCharVarChanged(character, key, oldValue, value)
+	if (key == "name" and IsValid(character:getPlayer()) and character:getPlayer():isCombine()) then
+		for k, v in ipairs(nut.class.list) do
+			if (character:joinClass(k)) then
+				break
+			end
+		end
+
+		hook.Run("PlayerRankChanged", character:getPlayer())
 	end
 end
 
@@ -103,7 +159,7 @@ function SCHEMA:PlayerHurt(client, attacker, health, damage)
 		elseif (damage >= 25) then
 			word = "large"
 		end
-		print(damage)
+
 		client:addDisplay("local unit has sustained "..word.." bodily damage"..(damage >= 25 and ", seek medical attention" or ""), Color(255, 175, 0))
 
 		local delay
@@ -150,9 +206,10 @@ function SCHEMA:PlayerTick(client)
 end
 
 function SCHEMA:PlayerMessageSend(client, chatType, message, anonymous)
-	if (client:isCombine()) then
-		local beeps = self.beepSounds[client:Team()] or self.beepSounds[FACTION_CP]
-		local sounds, message = nut.voice.getVoiceList("combine", message)
+	local definition = nut.voice.getClass(client)
+
+	if (definition and (chatType == "ic" or chatType == "w" or chatType == "y" or chatType == "r")) then
+		local sounds, message = nut.voice.getVoiceList(definition.class, message)
 
 		if (sounds) then
 			local volume = 100
@@ -163,8 +220,9 @@ function SCHEMA:PlayerMessageSend(client, chatType, message, anonymous)
 				volume = 150
 			end
 			
-			table.insert(sounds, 1, {(table.Random(beeps.on)), 0.25})
-			sounds[#sounds + 1] = {(table.Random(beeps.off)), nil, 0.25}
+			if (definition.onModify) then
+				definition.onModify(client, sounds)
+			end
 
 			nut.util.emitQueuedSounds(client, sounds, nil, nil, volume)
 
@@ -178,3 +236,30 @@ function SCHEMA:PlayerStaminaLost(client)
 		client:addDisplay("Local unit energy has been exhausted")
 	end
 end
+
+function SCHEMA:CanPlayerViewObjectives(client)
+	return client:isCombine()
+end
+
+function SCHEMA:CanPlayerEditObjectives(client)
+	print(client)
+	return client:isCombine()
+end
+
+netstream.Hook("dataCls", function(client, text)
+	local target = client.nutDataTarget
+
+	if (text and IsValid(target) and target:getChar() and hook.Run("CanPlayerEditData", client, target)) then
+		target:getChar():setData("txt", text:sub(1, 750))
+		client:EmitSound("buttons/combine_button7.wav", 60, 150)
+	end
+
+	client.nutDataTarget = nil
+end)
+
+netstream.Hook("obj", function(client, text)
+	if (hook.Run("CanPlayerEditObjectives", client)) then
+		SCHEMA.objectives = text
+		SCHEMA:addDisplay(client:Name().." has updated the objectives", Color(0, 0, 255))
+	end
+end)

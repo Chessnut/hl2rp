@@ -1,12 +1,27 @@
 nut.voice = {}
 nut.voice.list = {}
+nut.voice.checks = nut.voice.checks or {}
+
+function nut.voice.defineClass(class, onCheck, onModify)
+	nut.voice.checks[class] = {class = class:lower(), onCheck = onCheck, onModify = onModify}
+end
+
+function nut.voice.getClass(client)
+	for k, v in pairs(nut.voice.checks) do
+		if (v.onCheck(client)) then
+			return v
+		end
+	end
+end
 
 function nut.voice.register(class, key, replacement, source)
+	class = class:lower()
+	
 	nut.voice.list[class] = nut.voice.list[class] or {}
 	nut.voice.list[class][key:lower()] = {replacement = replacement, source = source}
 end
 
-function nut.voice.getVoiceList(class, text)
+function nut.voice.getVoiceList(class, text, delay)
 	local info = nut.voice.list[class]
 
 	if (!info) then
@@ -58,7 +73,7 @@ function nut.voice.getVoiceList(class, text)
 		end
 
 		if (info[key]) then
-			output[#output + 1] = info[key].source
+			output[#output + 1] = {info[key].source, delay or 0.1}
 			phrase = phrase..info[key].replacement.." "
 			skip = i
 		else

@@ -7,7 +7,7 @@ FACTION.models = {
 }
 
 function FACTION:onGetDefaultName(client)
-	return "CP-RCT."..math.random(10000, 99999), true
+	return SCHEMA.cpPrefix..table.GetFirstValue(SCHEMA.rctRanks).."."..math.random(10000, 99999), true
 end
 
 FACTION_CP = FACTION.index

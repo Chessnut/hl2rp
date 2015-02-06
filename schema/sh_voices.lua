@@ -1,3 +1,31 @@
+--[[
+	Define your voice classes here. The function goes:
+
+	nut.voice.defineClass(class, onCheck(client)[, onModify(client, sounds)])
+
+	Class is the same class that starts the nut.voice.register
+	It is case-insensitive. The onCheck passes the player trying
+	to use the class. Return true to allow them to use the class.
+--]]
+
+nut.voice.defineClass("combine", function(client)
+	return client:isCombine()
+end, function(client, sounds)
+	local beeps = SCHEMA.beepSounds[client:Team()] or SCHEMA.beepSounds[FACTION_CP]
+
+	table.insert(sounds, 1, {(table.Random(beeps.on)), 0.25})
+	sounds[#sounds + 1] = {(table.Random(beeps.off)), nil, 0.25}
+end)
+
+--[[
+
+-- Example of citizen class that requires the ciitzen to have 'y' flag.
+nut.voice.defineClass("citizen", function(client)
+	return client:getChar():hasFlag("y")
+
+end)
+--]]
+
 nut.voice.register("combine", "0", "Zero.", "npc/metropolice/vo/zero.wav")
 nut.voice.register("combine", "1", "One.", "npc/metropolice/vo/one.wav")
 nut.voice.register("combine", "10", "Ten.", "npc/metropolice/vo/ten.wav")
@@ -261,7 +289,7 @@ nut.voice.register("combine", "PRODUCTION BLOCK", "Production-block.", "npc/metr
 nut.voice.register("combine", "PROSECUTE MALCOMPLIANT", "Ready to prosecute malcompliant citizen, final warning issued!", "npc/metropolice/vo/readytoprosecutefinalwarning.wav")
 nut.voice.register("combine", "PROSECUTE", "Prosecute!", "npc/metropolice/vo/prosecute.wav")
 nut.voice.register("combine", "PROSECUTING", "Prosecuting.", "npc/combine_soldier/vo/procecuting.")
-nut.voice.register("combine", "PROSECUTION", "Protection complete.", "npc/metropolice/vo/protectioncomplete.wav")
+nut.voice.register("combine", "PROTECTION COMPLETE", "Protection complete.", "npc/metropolice/vo/protectioncomplete.wav")
 nut.voice.register("combine", "QUICK", "Quick!", "npc/metropolice/vo/quick.wav")
 nut.voice.register("combine", "QUICKSAND", "Quicksand.", "npc/combine_soldier/vo/quicksand.wav")
 nut.voice.register("combine", "RANGE", "Range.", "npc/combine_soldier/vo/range.wav")
