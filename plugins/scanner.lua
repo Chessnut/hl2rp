@@ -24,6 +24,8 @@ if (SERVER) then
 		entity.player = client
 		entity:CallOnRemove("nutRestore", function()
 			if (IsValid(client)) then
+				local position = entity.spawn or client:GetPos()
+
 				client:UnSpectate()
 
 				if (entity:Health() > 0) then
@@ -32,7 +34,9 @@ if (SERVER) then
 					client:KillSilent()
 				end
 
-				client:SetPos(entity.spawn or entity:GetPos())
+				timer.Simple(0, function()
+					client:SetPos(position)
+				end)
 			end
 		end)
 

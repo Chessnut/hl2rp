@@ -6,24 +6,27 @@ function CLASS:onCanBe(client)
 	return client:isCombineRank(SCHEMA.scnRanks)
 end
 
-local scanner = nut.plugin.list.scanner
 
-if (scanner) then
-	function CLASS:onSet(client)
+function CLASS:onSet(client)
+	local scanner = nut.plugin.list.scanner
+
+	if (scanner) then
 		scanner:createScanner(client, client:getCombineRank() == "CLAW.SCN" and "npc_clawscanner" or nil)
+	else
+		client:ChatPrint("The server is missing the 'scanner' plugin.")
 	end
+end
 
-	function CLASS:onLeave(client)
-		if (IsValid(client.nutScn)) then
-			local data = {}
-				data.start = client.nutScn:GetPos()
-				data.endpos = data.start - Vector(0, 0, 1024)
-				data.filter = {client, client.nutScn}
-			local position = util.TraceLine(data).HitPos
+function CLASS:onLeave(client)
+	if (IsValid(client.nutScn)) then
+		local data = {}
+			data.start = client.nutScn:GetPos()
+			data.endpos = data.start - Vector(0, 0, 1024)
+			data.filter = {client, client.nutScn}
+		local position = util.TraceLine(data).HitPos
 
-			client.nutScn.spawn = position
-			client.nutScn:Remove()
-		end
+		client.nutScn.spawn = position
+		client.nutScn:Remove()
 	end
 end
 

@@ -13,13 +13,14 @@
     along with NutScript.  If not, see <http://www.gnu.org/licenses/>.
 --]]
 
-ITEM.name = "MP7"
-ITEM.desc = "A compact, fully automatic sub-machine gun."
+ITEM.name = "Crossbow"
+ITEM.desc = "A crossbow that fires a heated bolt."
 ITEM.model = "models/weapons/w_smg1.mdl"
 ITEM.class = "weapon_smg1"
 ITEM.weaponCategory = "primary"
 ITEM.width = 3
 ITEM.height = 2
+ITEM.price = 750
 ITEM.iconCam = {
 	ang	= Angle(-0.020070368424058, 270.40155029297, 0),
 	fov	= 7.2253324508038,

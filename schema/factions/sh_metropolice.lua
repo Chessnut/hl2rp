@@ -5,6 +5,7 @@ FACTION.isDefault = false
 FACTION.models = {
 	"models/police.mdl"
 }
+FACTION.weapons = {"nut_stunstick"}
 
 function FACTION:onGetDefaultName(client)
 	return SCHEMA.cpPrefix..table.GetFirstValue(SCHEMA.rctRanks).."."..math.random(10000, 99999), true

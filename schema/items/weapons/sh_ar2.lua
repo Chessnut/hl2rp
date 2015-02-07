@@ -19,6 +19,7 @@ ITEM.model = "models/weapons/w_irifle.mdl"
 ITEM.class = "weapon_ar2"
 ITEM.weaponCategory = "primary"
 ITEM.width = 4
+ITEM.price = 450
 ITEM.height = 2
 ITEM.iconCam = {
 	ang	= Angle(-0.70499622821808, 268.25439453125, 0),

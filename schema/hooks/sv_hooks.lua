@@ -49,12 +49,15 @@ function SCHEMA:PostPlayerLoadout(client)
 			hook.Run("PlayerRankChanged", client)
 
 			client:SetArmor(50)
-			client:Give("nut_stunstick")
 		else
 			client:SetArmor(100)
 		end
 
 		client:addDisplay("Local unit protection measures active at "..client:Armor().."%")
+
+		if (nut.plugin.list.scanner and client:isCombineRank(self.scnRanks)) then
+			nut.plugin.list.scanner:createScanner(client, client:getCombineRank() == "CLAW.SCN" and "npc_clawscanner" or nil)
+		end
 	end
 end
 
