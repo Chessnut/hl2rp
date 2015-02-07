@@ -103,4 +103,49 @@ if (SERVER) then
 			client.nutScn:TakeDamage(999)
 		end
 	end
+
+	local SCANNER_SOUNDS = {
+		"npc/scanner/scanner_blip1.wav",
+		"npc/scanner/scanner_scan1.wav",
+		"npc/scanner/scanner_scan2.wav",
+		"npc/scanner/scanner_scan4.wav",
+		"npc/scanner/scanner_scan5.wav",
+		"npc/scanner/combat_scan1.wav",
+		"npc/scanner/combat_scan2.wav",
+		"npc/scanner/combat_scan3.wav",
+		"npc/scanner/combat_scan4.wav",
+		"npc/scanner/combat_scan5.wav",
+		"npc/scanner/cbot_servoscared.wav",
+		"npc/scanner/cbot_servochatter.wav"
+	}
+
+	function PLUGIN:KeyPress(client, key)
+		if (IsValid(client.nutScn) and (client.nutScnDelay or 0) < CurTime()) then
+			local source
+
+			if (key == IN_USE) then
+				source = table.Random(SCANNER_SOUNDS)
+				client.nutScnDelay = CurTime() + 1.75
+			elseif (key == IN_RELOAD) then
+				source = "npc/scanner/scanner_talk"..math.random(1, 2)..".wav"
+				client.nutScnDelay = CurTime() + 10
+			end
+
+			if (source) then
+				client.nutScn:EmitSound(source)
+			end
+		end
+	end
+
+	function PLUGIN:PlayerNoClip(client)
+		if (IsValid(client.nutScn)) then
+			return false
+		end
+	end
+	
+	function PLUGIN:PlayerUse(client, entity)
+		if (IsValid(client.nutScn)) then
+			return false
+		end
+	end
 end

@@ -211,7 +211,7 @@ end
 function SCHEMA:PlayerMessageSend(client, chatType, message, anonymous)
 	local definition = nut.voice.getClass(client)
 
-	if (definition and (chatType == "ic" or chatType == "w" or chatType == "y" or chatType == "r")) then
+	if (definition and (chatType == "ic" or chatType == "w" or chatType == "y" or chatType == "radio")) then
 		local sounds, message = nut.voice.getVoiceList(definition.class, message)
 
 		if (sounds) then
