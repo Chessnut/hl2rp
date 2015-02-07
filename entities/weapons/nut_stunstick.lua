@@ -201,7 +201,7 @@ function SWEP:SecondaryAttack()
 			self:SetNextSecondaryFire(CurTime() + 0.4)
 			self:SetNextPrimaryFire(CurTime() + 1)
 		elseif (entity:IsPlayer()) then
-			local direction = self.Owner:GetAimVector() * (300 + (self.Owner:GetAttrib(ATTRIB_STR, 0) * 3))
+			local direction = self.Owner:GetAimVector() * (300 + (self.Owner:getChar():getAttrib("str", 0) * 3))
 			direction.z = 0
 
 			entity:SetVelocity(direction)
@@ -223,15 +223,10 @@ function SWEP:SecondaryAttack()
 			self.Owner:EmitSound("weapons/crossbow/hitbod"..math.random(1, 2)..".wav")
 
 			local model = string.lower(self.Owner:GetModel())
+			local owner = self.Owner
 
 			if (nut.anim.getModelClass(model) == "metrocop") then
-				self.Owner:SetOverrideSeq("pushplayer", nil, function()
-					self.Owner:Freeze(true)
-				end, function()
-					if (IsValid(self)) then
-						self.Owner:Freeze(false)
-					end
-				end)
+				self.Owner:forceSequence("pushplayer")
 			end
 		end
 	end
