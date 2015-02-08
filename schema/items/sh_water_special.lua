@@ -3,6 +3,7 @@ ITEM.desc = "A blue can of plain water."
 ITEM.model = "models/props_junk/popcan01a.mdl"
 ITEM.healthRestore = 20
 ITEM.restore = 100
+ITEM.category = "consumables"
 ITEM.skin = 1
 ITEM.functions.Drink = {
 	icon = "icon16/cup.png",
