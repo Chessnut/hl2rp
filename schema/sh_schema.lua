@@ -90,6 +90,10 @@ do
 		end
 	end
 
+	function SCHEMA:isDispatch(client)
+		return client:isCombineRank(self.eliteRanks) or client:isCombineRank(self.scnRanks)
+	end
+
 	function playerMeta:getDigits()
 		if (self:isCombine()) then
 			local name = self:Name():reverse()
@@ -178,7 +182,7 @@ end
 for k, v in pairs(SCHEMA.rankModels) do
 	nut.anim.setModelClass(v, "metrocop")
 	player_manager.AddValidModel("combine", v)
-	
+
 	util.PrecacheModel(v)
 end
 
@@ -231,3 +235,18 @@ if (SERVER) then
 		end
 	end
 end
+
+nut.chat.register("dispatch", {
+	color = Color(192, 57, 43),
+	onCanSay = function(client)
+		if (!SCHEMA:isDispatch(client)) then
+			client:notifyLocalized("notAllowed")
+
+			return false
+		end
+	end,
+	onChatAdd = function(speaker, text)
+		chat.AddText(Color(192, 57, 43), L("icFormat", "Dispatch", text))
+	end,
+	prefix = {"/dispatch"}
+})

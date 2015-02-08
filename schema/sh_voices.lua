@@ -8,14 +8,33 @@
 	to use the class. Return true to allow them to use the class.
 --]]
 
+-- What type of chat modes support voice commands:
+nut.voice.chatTypes["ic"] = true
+nut.voice.chatTypes["w"] = true
+nut.voice.chatTypes["y"] = true
+nut.voice.chatTypes["radio"] = true
+nut.voice.chatTypes["dispatch"] = true
+
 nut.voice.defineClass("combine", function(client)
 	return client:isCombine()
-end, function(client, sounds)
+end, function(client, sounds, chatType)
+	if (chatType == "dispatch") then
+		return false
+	end
+
 	local beeps = SCHEMA.beepSounds[client:Team()] or SCHEMA.beepSounds[FACTION_CP]
 
 	table.insert(sounds, 1, {(table.Random(beeps.on)), 0.25})
 	sounds[#sounds + 1] = {(table.Random(beeps.off)), nil, 0.25}
 end)
+
+nut.voice.defineClass("dispatch", function(client)
+	return SCHEMA:isDispatch(client)
+end, function(client, sounds, chatType)
+	if (chatType != "dispatch") then
+		return false
+	end
+end, true)
 
 --[[
 

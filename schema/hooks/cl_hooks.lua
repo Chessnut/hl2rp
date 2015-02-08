@@ -109,3 +109,7 @@ end)
 netstream.Hook("obj", function(...)
 	vgui.Create("nutObjective"):setData(...)
 end)
+
+netstream.Hook("voicePlay", function(sounds, volume)
+	nut.util.emitQueuedSounds(LocalPlayer(), sounds, nil, nil, volume)
+end)

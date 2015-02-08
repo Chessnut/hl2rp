@@ -1,17 +1,22 @@
 nut.voice = {}
 nut.voice.list = {}
 nut.voice.checks = nut.voice.checks or {}
+nut.voice.chatTypes = {}
 
-function nut.voice.defineClass(class, onCheck, onModify)
-	nut.voice.checks[class] = {class = class:lower(), onCheck = onCheck, onModify = onModify}
+function nut.voice.defineClass(class, onCheck, onModify, global)
+	nut.voice.checks[class] = {class = class:lower(), onCheck = onCheck, onModify = onModify, isGlobal = global}
 end
 
 function nut.voice.getClass(client)
+	local definitions = {}
+
 	for k, v in pairs(nut.voice.checks) do
 		if (v.onCheck(client)) then
-			return v
+			definitions[#definitions + 1] = v
 		end
 	end
+
+	return definitions
 end
 
 function nut.voice.register(class, key, replacement, source)

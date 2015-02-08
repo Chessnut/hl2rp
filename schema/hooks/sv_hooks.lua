@@ -209,9 +209,11 @@ function SCHEMA:PlayerTick(client)
 end
 
 function SCHEMA:PlayerMessageSend(client, chatType, message, anonymous)
-	local definition = nut.voice.getClass(client)
+	if (!nut.voice.chatTypes[chatType]) then
+		return
+	end
 
-	if (definition and (chatType == "ic" or chatType == "w" or chatType == "y" or chatType == "radio")) then
+	for _, definition in ipairs(nut.voice.getClass(client)) do
 		local sounds, message = nut.voice.getVoiceList(definition.class, message)
 
 		if (sounds) then
@@ -224,10 +226,16 @@ function SCHEMA:PlayerMessageSend(client, chatType, message, anonymous)
 			end
 			
 			if (definition.onModify) then
-				definition.onModify(client, sounds)
+				if (definition.onModify(client, sounds, chatType, message) == false) then
+					continue
+				end
 			end
 
-			nut.util.emitQueuedSounds(client, sounds, nil, nil, volume)
+			if (definition.isGlobal) then
+				netstream.Start(nil, "voicePlay", sounds, volume)
+			else
+				nut.util.emitQueuedSounds(client, sounds, nil, nil, volume)
+			end
 
 			return message
 		end
@@ -245,7 +253,6 @@ function SCHEMA:CanPlayerViewObjectives(client)
 end
 
 function SCHEMA:CanPlayerEditObjectives(client)
-	print(client)
 	return client:isCombine()
 end
 
