@@ -15,24 +15,28 @@ ITEM.functions.Use = {
 			data.filter = client
 		local target = util.TraceLine(data).Entity
 
-		if (IsValid(target) and target:IsPlayer() and target:getChar() and !target:getNetVar("tied")) then
+		if (IsValid(target) and target:IsPlayer() and target:getChar() and !target:getNetVar("tying") and !target:getNetVar("restricted")) then
 			item.beingUsed = true
 
 			client:EmitSound("physics/plastic/plastic_barrel_strain"..math.random(1, 3)..".wav")
 			client:setAction("@tying", 5)
 			client:doStaredAction(target, function()
 				item:remove()
-				target:setNetVar("tied", 1)
+
+				target:setRestricted(true)
+				target:setNetVar("tying")
+
 				client:EmitSound("npc/barnacle/neck_snap1.wav", 100, 140)
 			end, 5, function()
 				client:setAction()
+
 				target:setAction()
-				target:setNetVar("tied")
+				target:setNetVar("tying")
 
 				item.beingUsed = false
 			end)
 
-			target:setNetVar("tied", 0)
+			target:setNetVar("tying", true)
 			target:setAction("@beingTied", 5)
 		else
 			item.player:notifyLocalized("plyNotValid")
