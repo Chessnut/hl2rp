@@ -4,7 +4,7 @@ SCHEMA.author = "Chessnut"
 SCHEMA.desc = "Under rule of the Universal Union."
 
 function SCHEMA:isCombineFaction(faction)
-	return faction == FACTION_CP or faction == FACTION_OTA
+	return faction == FACTION_CP or faction == FACTION_OW
 end
 
 do
