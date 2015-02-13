@@ -139,7 +139,12 @@ else
 		end)
 	end
 
-	function ENT:dispense()
+	function ENT:dispense(amount)
+		if (amount < 1) then
+			return
+		end
+
+		self:setUseAllowed(false)
 		self:SetText("DISPENSING")
 		self:EmitSound("ambient/machines/combine_terminal_idle4.wav")
 		self:createRation()
@@ -147,23 +152,27 @@ else
 
 		timer.Simple(3.5, function()
 			if (IsValid(self)) then
-				self:SetText("ARMING")
-				self:SetDispColor(COLOR_ORANGE)
-				self:EmitSound("buttons/combine_button7.wav")
+				if (amount > 1) then
+					self:dispense(amount - 1)
+				else
+					self:SetText("ARMING")
+					self:SetDispColor(COLOR_ORANGE)
+					self:EmitSound("buttons/combine_button7.wav")
 
-				timer.Simple(7, function()
-					if (!IsValid(self)) then return end
-
-					self:SetText("INSERT ID")
-					self:SetDispColor(COLOR_GREEN)
-					self:EmitSound("buttons/combine_button1.wav")
-
-					timer.Simple(0.75, function()
+					timer.Simple(7, function()
 						if (!IsValid(self)) then return end
 
-						self:setUseAllowed(true)
+						self:SetText("INSERT ID")
+						self:SetDispColor(COLOR_GREEN)
+						self:EmitSound("buttons/combine_button1.wav")
+
+						timer.Simple(0.75, function()
+							if (!IsValid(self)) then return end
+
+							self:setUseAllowed(true)
+						end)
 					end)
-				end)
+				end
 			end
 		end)
 	end
@@ -186,27 +195,43 @@ else
 			timer.Simple(1, function()
 				if (!IsValid(self) or !IsValid(activator)) then return self:setUseAllowed(true) end
 
+				local found = false
+				local amount = 0
+				local item
+
+				for k, v in pairs(activator:getChar():getInv():getItems()) do
+					if (v.uniqueID == "cid") then
+						found = true
+
+						if (v:getData("nextTime", 0) < os.time()) then
+							if (v:getData("cwu")) then
+								amount = 2
+							else
+								amount = 1
+							end
+
+							item = v
+
+							break
+						end
+					end
+				end
+
 				local item = activator:getChar():getInv():hasItem("cid")
 
-				if (!item) then
+				if (!found) then
 					return self:error("INVALID ID")
+				elseif (found and amount == 0) then
+					return self:error("TRY LATER")
 				else
-					if (item:getData("nextTime", 0) >= os.time()) then
-						return self:error("TRY LATER")
-					end
+					item:setData("nextTime", os.time() + 300)
 
 					self:SetText("ID OKAY")
 					self:EmitSound("buttons/button14.wav", 100, 50)
 
 					timer.Simple(1, function()
-						if (!IsValid(self) or !IsValid(activator)) then return self:setUseAllowed(true) end
-						item = activator:getChar():getInv():hasItem("cid")
-
-						if (item) then
-							item:setData("nextTime", os.time() + 300)							
-							self:dispense()
-						else
-							self:error("ERROR")
+						if (IsValid(self)) then
+							self:dispense(amount)
 						end
 					end)
 				end
