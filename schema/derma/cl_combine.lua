@@ -15,7 +15,7 @@ local PANEL = {}
 		self:SetScreenLock(true)
 		self:ShowCloseButton(false)
 		self:SetVisible(false)
-		self:SetAlpha(math.max(cookie.GetNumber("nutCombineAlpha") * 255), 1)
+		self:SetAlpha(math.max(cookie.GetNumber("nutCombineAlpha", 255) * 255), 1)
 		self.mult = cookie.GetNumber("nutCombineMult", 0.5)
 
 		self.alpha = self:Add("DAlphaBar")
