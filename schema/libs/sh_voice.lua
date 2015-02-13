@@ -19,7 +19,7 @@ function nut.voice.getClass(client)
 	return definitions
 end
 
-function nut.voice.register(class, key, replacement, source)
+function nut.voice.register(class, key, replacement, source, max)
 	class = class:lower()
 	
 	nut.voice.list[class] = nut.voice.list[class] or {}
@@ -39,7 +39,13 @@ function nut.voice.getVoiceList(class, text, delay)
 	local phrase = ""
 	local skip = 0
 
+	max = max or 5
+
 	for k, v in ipairs(exploded) do
+		if (k > max) then
+			break
+		end
+
 		if (k < skip) then
 			continue
 		end
