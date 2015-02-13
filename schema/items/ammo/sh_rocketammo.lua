@@ -25,3 +25,4 @@ ITEM.iconCam = {
 	pos	= Vector(7, 200, -2)
 }
 ITEM.category = "Ammunition"
+ITEM.flag = "y"

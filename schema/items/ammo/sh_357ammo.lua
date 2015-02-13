@@ -20,3 +20,4 @@ ITEM.ammoAmount = 12 // amount of the ammo
 ITEM.ammoDesc = "A Box that contains %s of .357 Ammo"
 ITEM.price = 10
 ITEM.category = "Ammunition"
+ITEM.flag = "y"

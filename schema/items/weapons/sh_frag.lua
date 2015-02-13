@@ -21,3 +21,4 @@ ITEM.weaponCategory = "grenade"
 ITEM.width = 1
 ITEM.height = 1
 ITEM.price = 250
+ITEM.flag = "Y"

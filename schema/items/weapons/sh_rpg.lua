@@ -11,3 +11,4 @@ ITEM.iconCam = {
 	ang = Angle(0, 270, 0),
 	fov = 16
 }
+ITEM.flag = "Y"

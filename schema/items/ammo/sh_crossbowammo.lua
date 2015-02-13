@@ -19,3 +19,4 @@ ITEM.ammo = "XBowRounds" // type of the ammo
 ITEM.ammoAmount = 5 // amount of the ammo
 ITEM.ammoDesc = "A Bundle of %s Crossbow Bolts"
 ITEM.category = "Ammunition"
+ITEM.flag = "y"

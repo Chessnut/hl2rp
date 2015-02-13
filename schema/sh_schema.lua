@@ -250,3 +250,6 @@ nut.chat.register("dispatch", {
 	end,
 	prefix = {"/dispatch"}
 })
+
+nut.flag.add("y", "Access to the light blackmarket items.")
+nut.flag.add("Y", "Access to the heavy blackmarket items.")
