@@ -112,7 +112,7 @@ end
 
 local modes = {}
 modes[1] = {function(client)
-	if (!client:getChar():getInv():hasItem("cid")) then
+	if (client:getChar() and !client:getChar():getInv():hasItem("cid")) then
 		return true
 	else
 		return false

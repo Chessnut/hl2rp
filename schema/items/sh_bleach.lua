@@ -11,3 +11,4 @@ ITEM.functions.Drink = {
 		end)
 	end
 }
+ITEM.permit = "misc"

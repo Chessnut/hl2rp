@@ -2,6 +2,7 @@ ITEM.name = "Zip Tie"
 ITEM.desc = "An orange zip-tie used to restrict players."
 ITEM.price = 50
 ITEM.model = "models/items/crossbowrounds.mdl"
+ITEM.factions = {FACTION_CP, FACTION_OW}
 ITEM.functions.Use = {
 	onRun = function(item)
 		if (item.beingUsed) then

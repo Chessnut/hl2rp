@@ -20,3 +20,4 @@ ITEM.functions.Read = {
 	end,
 	icon = "icon16/book_open.png"
 }
+ITEM.permit = "lit"

@@ -12,3 +12,4 @@ ITEM.functions.Drink = {
 		item.player:SetHealth(math.min(item.player:Health() + 1, 100))
 	end
 }
+ITEM.permit = "food"

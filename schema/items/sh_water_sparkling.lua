@@ -13,3 +13,4 @@ ITEM.functions.Drink = {
 		item.player:setLocalVar("stm", math.min(item.player:getLocalVar("stm", 100) + item.restore, 100))
 	end
 }
+ITEM.permit = "food"

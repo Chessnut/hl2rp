@@ -9,3 +9,4 @@ ITEM.functions.Use = {
 		item.player:SetHealth(math.min(item.player:Health() + 50, 100))
 	end
 }
+ITEM.factions = {FACTION_CP, FACTION_OW}

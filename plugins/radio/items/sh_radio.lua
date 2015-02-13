@@ -4,6 +4,8 @@ ITEM.width = 1
 ITEM.height = 1
 ITEM.category = "Communication"
 ITEM.price = 150
+ITEM.permit = "elec"
+
 function ITEM:getDesc()
 	local str
 	

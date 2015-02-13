@@ -28,3 +28,4 @@ ITEM.functions.Open = {
 }
 ITEM.items = {"water"}
 ITEM.money = {10, 15}
+ITEM.factions = FACTION_CP
