@@ -52,3 +52,29 @@ nut.command.add("objectives", {
 		end
 	end
 })
+
+nut.command.add("setpriority", {
+	syntax = "<number id> [bool status]",
+	onRun = function(client, arguments)
+		if (!client:isCombine()) then
+			return "@notCombine"
+		end
+
+		local id = tonumber(arguments[1])
+		local status = util.tobool(arguments[2])
+
+		if (!status) then
+			status = nil
+		end
+
+		for k2, v2 in pairs(nut.item.instances) do
+			if (v2.uniqueID == "cid" and v2:getData("id", 0) == id) then
+				v2:setData("cwu", status)
+
+				return "@prioritySet", v2:getData("name", "John Doe")
+			end
+		end
+
+		return "@plyNoExist"
+	end
+})
