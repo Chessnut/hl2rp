@@ -78,3 +78,27 @@ nut.command.add("setpriority", {
 		return "@plyNoExist"
 	end
 })
+
+nut.command.add("request", {
+	syntax = "<string text>",
+	onRun = function(client, arguments)
+		if ((client.nutNextReq or 0) < CurTime()) then
+			local text = table.concat(arguments, " ")
+			local item = client:getChar():getInv():hasItem("request")
+
+			if (item) then
+				if (text:find("%S")) then
+					client.nutNextReq = CurTime() + 5
+					nut.chat.send(client, "request", "["..item:getData("name", client:Name())..", "..item:getData("id", "ERROR").."] "..text)
+
+					return client:EmitSound("buttons/combine_button5.wav", 50, 40)
+				end
+			else
+				return "@noReqDev"
+			end
+
+			client.nutNextReq = CurTime() + 1
+			client:EmitSound("buttons/combine_button3.wav", 75, 150)
+		end
+	end
+})

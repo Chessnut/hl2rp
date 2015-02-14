@@ -251,6 +251,13 @@ nut.chat.register("dispatch", {
 	prefix = {"/dispatch"}
 })
 
+nut.chat.register("request", {
+	color = Color(210, 77, 87),
+	onChatAdd = function(speaker, text)
+		chat.AddText(Color(210, 77, 87), text)
+	end
+})
+
 nut.flag.add("y", "Access to the light blackmarket items.")
 nut.flag.add("Y", "Access to the heavy blackmarket items.")
 

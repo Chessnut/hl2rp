@@ -1,5 +1,5 @@
 ITEM.name = "Request Device"
-ITEM.desc = "A small device that allows communication with the police."
-ITEM.model = Model("models/gibs/shield_scanner_gib1.mdl")
-ITEM.price = 60
+ITEM.desc = "A device used to communicate with Civil Protection."
+ITEM.model = "models/gibs/shield_scanner_gib1.mdl"
+ITEM.price = 25
 ITEM.permit = "misc"
