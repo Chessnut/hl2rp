@@ -31,6 +31,7 @@ if (SERVER) then
 				local position = entity.spawn or client:GetPos()
 
 				client:UnSpectate()
+				client:SetViewEntity(NULL)
 
 				if (entity:Health() > 0) then
 					client:Spawn()

@@ -217,7 +217,7 @@ function SCHEMA:PlayerMessageSend(client, chatType, message, anonymous)
 		local sounds, message = nut.voice.getVoiceList(definition.class, message)
 
 		if (sounds) then
-			local volume = 100
+			local volume = 80
 
 			if (chatType == "w") then
 				volume = 60
@@ -234,7 +234,7 @@ function SCHEMA:PlayerMessageSend(client, chatType, message, anonymous)
 			if (definition.isGlobal) then
 				netstream.Start(nil, "voicePlay", sounds, volume)
 			else
-				nut.util.emitQueuedSounds(client, sounds, nil, nil, volume)
+				netstream.Start(nil, "voicePlay", sounds, volume, client:EntIndex())
 			end
 
 			return message
