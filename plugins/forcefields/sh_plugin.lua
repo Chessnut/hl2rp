@@ -15,7 +15,7 @@ function PLUGIN:saveForceFields()
 end
 
 function PLUGIN:LoadData()
-	local buffer = self:getData()
+	local buffer = self:getData() or {}
 
 	for k, v in ipairs(buffer) do
 		local entity = ents.Create("nut_forcefield")
