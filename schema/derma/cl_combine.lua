@@ -32,6 +32,22 @@ local PANEL = {}
 			self.mult = value
 		end
 
+		self.clear = self:Add("DButton")
+		self.clear:Dock(TOP)
+		self.clear:SetText("Clear")
+		self.clear.DoClick = function()
+			SCHEMA.displays = {}
+		end
+
+		if (nut.plugin.list.scanner) then
+			self.photos = self:Add("DButton")
+			self.photos:Dock(TOP)
+			self.photos:SetText("View Photos")
+			self.photos.DoClick = function()
+				RunConsoleCommand("nut_photocache")
+			end
+		end
+
 		self.oldOnRelease = self.OnMouseReleased
 
 		self.OnMouseReleased = function(this)
