@@ -18,6 +18,8 @@ if (SERVER) then
 		end
 	end
 else
+	ENT.DrawEntityInfo = true
+	
 	function ENT:onShouldDrawEntityInfo()
 		return true
 	end
