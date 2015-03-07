@@ -15,15 +15,15 @@
 
 ITEM.name = "Crossbow"
 ITEM.desc = "A crossbow that fires a heated bolt."
-ITEM.model = "models/weapons/w_smg1.mdl"
-ITEM.class = "weapon_smg1"
-ITEM.weaponCategory = "primary"
+ITEM.model = "models/weapons/w_crossbow.mdl"
 ITEM.width = 3
-ITEM.height = 2
+ITEM.height = 1
+ITEM.iconCam = {
+    pos = Vector(-12, 189.54248046875, 3),
+    ang = Angle(0, 270, 0),
+    fov = 15.882352941176
+}
+ITEM.class = "weapon_crossbow"
+ITEM.weaponCategory = "primary"
 ITEM.price = 750
 ITEM.flag = "Y"
-ITEM.iconCam = {
-	ang	= Angle(-0.020070368424058, 270.40155029297, 0),
-	fov	= 7.2253324508038,
-	pos	= Vector(0, 200, -1)
-}
