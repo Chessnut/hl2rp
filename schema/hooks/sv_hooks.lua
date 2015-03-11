@@ -69,7 +69,7 @@ end
 
 function SCHEMA:PlayerUseDoor(client, entity)
 	if (client:isCombine()) then
-		if (!entity:HasSpawnFlags(bit.band(256, 1024))) then
+		if (entity:GetSaveTable().m_toggle_state == 1 and !entity:HasSpawnFlags(bit.band(256, 1024))) then
 			entity:Fire("open", "", 0)
 		end
 	end
