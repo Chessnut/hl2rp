@@ -42,6 +42,9 @@ if (SERVER) then
 		self:PhysicsInit(SOLID_VPHYSICS)
 		self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 		self:SetUseType(SIMPLE_USE)
+		self.onDoorRestored = function(self, door)
+			self:toggle(false)
+		end
 	end
 
 	function ENT:OnRemove()
