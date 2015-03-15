@@ -40,7 +40,7 @@ end, true)
 
 -- Example of citizen class that requires the ciitzen to have 'y' flag.
 nut.voice.defineClass("citizen", function(client)
-	return client:getChar():hasFlag("y")
+	return client:getChar():hasFlags("y")
 
 end)
 --]]
