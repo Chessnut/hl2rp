@@ -69,11 +69,13 @@ end
 
 function SCHEMA:PlayerUseDoor(client, entity)
 	if (client:isCombine()) then
-		if (client:KeyDown(IN_SPEED) and IsValid(entity.lock)) then
-			entity.lock:toggle()
-		end
+		local lock = entity.lock or (IsValid(entity:getDoorPartner()) and entity:getDoorPartner().lock)
 
-		if (!entity:HasSpawnFlags(256) and !entity:HasSpawnFlags(1024)) then
+		if (client:KeyDown(IN_SPEED) and IsValid(lock)) then
+			lock:toggle()
+
+			return false
+		elseif (!entity:HasSpawnFlags(256) and !entity:HasSpawnFlags(1024)) then
 			entity:Fire("open", "", 0)
 		end
 	end

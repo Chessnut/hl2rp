@@ -93,8 +93,11 @@ if (SERVER) then
 	function ENT:toggle(override)
 		if (override != nil) then
 			self:SetLocked(override)
-		else
+		elseif ((self.nextToggle or 0) < CurTime()) then
+			self.nextToggle = CurTime() + 1
 			self:SetLocked(!self:GetLocked())
+		else
+			return
 		end
 
 		local partner = self.door:getDoorPartner()
