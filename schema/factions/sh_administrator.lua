@@ -5,5 +5,6 @@ FACTION.isDefault = false
 FACTION.models = {
 	"models/breen.mdl"
 }
+FACTION.pay = 40
 
 FACTION_ADMIN = FACTION.index

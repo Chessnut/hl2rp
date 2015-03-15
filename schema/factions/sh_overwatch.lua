@@ -5,5 +5,6 @@ FACTION.isDefault = false
 FACTION.models = {
 	"models/combine_soldier.mdl"
 }
+FACTION.pay = 30
 
 FACTION_OW = FACTION.index
