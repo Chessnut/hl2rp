@@ -5,15 +5,15 @@ local RADIO_CHATCOLOR = Color(100, 255, 50)
 
 -- This is how initialize Language in Single File.
 local langkey = "english"
-do
-	local langTable = {
-		radioFreq = "Frequency",
-		radioSubmit = "Submit",
-		radioNoRadio = "You don't have any radio to adjust.",
-		radioNoRadioComm = "You don't have any radio to communicate",
-		radioFormat = "%s radios in \"%s\"",
-	}
+local langTable = {
+	radioFreq = "Frequency",
+	radioSubmit = "Submit",
+	radioNoRadio = "You don't have any radio to adjust.",
+	radioNoRadioComm = "You don't have any radio to communicate",
+	radioFormat = "%s radios in \"%s\"",
+}
 
+function PLUGIN:PluginLoaded()
 	table.Merge(nut.lang.stored[langkey], langTable)
 end
 
