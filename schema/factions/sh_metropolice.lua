@@ -7,6 +7,7 @@ FACTION.models = {
 }
 FACTION.weapons = {"nut_stunstick"}
 FACTION.pay = 25
+FACTION.isGloballyRecognized = true
 
 function FACTION:onGetDefaultName(client)
 	return SCHEMA.cpPrefix..table.GetFirstValue(SCHEMA.rctRanks).."."..math.random(10000, 99999), true

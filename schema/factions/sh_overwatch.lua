@@ -6,5 +6,6 @@ FACTION.models = {
 	"models/combine_soldier.mdl"
 }
 FACTION.pay = 30
+FACTION.isGloballyRecognized = true
 
 FACTION_OW = FACTION.index
