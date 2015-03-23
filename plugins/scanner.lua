@@ -26,6 +26,7 @@ if (SERVER) then
 		entity:Spawn()
 		entity:Activate()
 		entity.player = client
+		entity:setNetVar("player", client) -- Draw the player info when looking at the scanner.
 		entity:CallOnRemove("nutRestore", function()
 			if (IsValid(client)) then
 				local position = entity.spawn or client:GetPos()
