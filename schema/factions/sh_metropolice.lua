@@ -10,7 +10,12 @@ FACTION.pay = 25
 FACTION.isGloballyRecognized = true
 
 function FACTION:onGetDefaultName(client)
-	return SCHEMA.cpPrefix..table.GetFirstValue(SCHEMA.rctRanks).."."..math.random(10000, 99999), true
+	if (SCHEMA.digitsLen >= 1) then
+		local digits = math.random(tonumber("1"..string.rep("0", SCHEMA.digitsLen-1)), tonumber(string.rep("9", SCHEMA.digitsLen)))
+		return SCHEMA.cpPrefix..table.GetFirstValue(SCHEMA.rctRanks).."."..digits, true
+	else
+		return SCHEMA.cpPrefix..table.GetFirstValue(SCHEMA.rctRanks), true
+	end
 end
 
 FACTION_CP = FACTION.index
