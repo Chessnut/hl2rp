@@ -125,17 +125,18 @@ if (SERVER) then
 	function ENT:getLockPos(client, door)
 		local index, index2 = door:LookupBone("handle")
 		local normal = client:GetEyeTrace().HitNormal:Angle()
+		local position = client:GetEyeTrace().HitPos
 
-		if (!index or index < 1) then
-			return client:GetEyeTrace().HitPos, normal
+		if (index and index >= 1) then
+			position = door:GetBonePosition(index)
 		end
 
-		local position = door:GetBonePosition(index)
-			position = position + normal:Forward()*7 + normal:Up()*10
-
-			normal:RotateAroundAxis(normal:Up(), 90)
-			normal:RotateAroundAxis(normal:Forward(), 180)
-			normal:RotateAroundAxis(normal:Right(), 180)
+		position = position + normal:Forward()*7 + normal:Up()*10
+		
+		normal:RotateAroundAxis(normal:Up(), 90)
+		normal:RotateAroundAxis(normal:Forward(), 180)
+		normal:RotateAroundAxis(normal:Right(), 180)
+		
 		return position, normal
 	end
 
