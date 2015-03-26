@@ -112,7 +112,7 @@ if (CLIENT) then
 
 	surface.CreateFont("nutRadioFont", {
 		font = "Lucida Sans Typewriter",
-		size = 13,
+		size = math.max(ScreenScale(7), 17),
 		weight = 100
 	})
 
