@@ -262,7 +262,7 @@ end
 local NUM_BEAM_ATTACHEMENTS = 9
 local BEAM_ATTACH_CORE_NAME	= "sparkrear"
 
-function SWEP:ViewModelDrawn()
+function SWEP:PostDrawViewModel()
 	if (!self:GetActivated()) then
 		return
 	end
@@ -275,7 +275,7 @@ function SWEP:ViewModelDrawn()
 
 	cam.Start3D(EyePos(), EyeAngles())
 		local size = math.Rand(3.0, 4.0)
-		local color = Color(255, 255, 255, 100 + math.sin(RealTime() * 2)*20)
+		local color = Color(255, 255, 255, 50 + math.sin(RealTime() * 2)*20)
 
 		STUNSTICK_GLOW_MATERIAL_NOZ:SetFloat("$alpha", color.a / 255)
 
