@@ -255,6 +255,9 @@ nut.chat.register("request", {
 	color = Color(210, 77, 87),
 	onChatAdd = function(speaker, text)
 		chat.AddText(Color(210, 77, 87), text)
+	end,
+	onCanHear = function(speaker, listener)
+		return listener:isCombine()
 	end
 })
 

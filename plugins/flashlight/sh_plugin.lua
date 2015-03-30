@@ -7,9 +7,7 @@ function PLUGIN:PlayerSwitchFlashlight(client, state)
 		return false
 	end
 
-	if (state and !client:getChar():getInv():hasItem("flashlight")) then
-		return false
+	if (state and client:getChar():getInv():hasItem("flashlight")) then
+		return true
 	end
-
-	return true
 end
