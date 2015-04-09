@@ -18,7 +18,7 @@ nut.voice.chatTypes["dispatch"] = true
 nut.voice.defineClass("combine", function(client)
 	return client:isCombine()
 end, function(client, sounds, chatType)
-	if (chatType == "dispatch") then
+	if (chatType == "dispatch" or client:isCombineRank("SCN")) then
 		return false
 	end
 
