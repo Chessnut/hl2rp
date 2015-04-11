@@ -68,6 +68,10 @@ if (SERVER) then
 
 		timer.Create(uniqueID, 0.33, 0, function()
 			if (!IsValid(client) or !IsValid(entity)) then
+				if (IsValid(entity)) then
+					entity:Remove()
+				end
+				
 				return timer.Remove(uniqueID)
 			end
 
