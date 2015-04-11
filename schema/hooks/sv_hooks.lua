@@ -30,11 +30,7 @@ end
 function SCHEMA:LoadData()
 	self:loadVendingMachines()
 	self:loadDispensers()
-end
-
-function SCHEMA:SaveData()
-	self:saveVendingMachines()
-	self:saveDispensers()
+	self:loadObjectives()
 end
 
 function SCHEMA:PostPlayerLoadout(client)
@@ -277,5 +273,6 @@ netstream.Hook("obj", function(client, text)
 	if (hook.Run("CanPlayerEditObjectives", client)) then
 		SCHEMA.objectives = text
 		SCHEMA:addDisplay(client:Name().." has updated the objectives", Color(0, 0, 255))
+		SCHEMA:saveObjectives()
 	end
 end)

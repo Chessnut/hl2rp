@@ -189,6 +189,10 @@ end
 nut.util.include("sh_voices.lua")
 
 if (SERVER) then
+	function SCHEMA:saveObjectives()
+		nut.data.set("objectives", self.objectives, false, true)
+	end
+
 	function SCHEMA:saveVendingMachines()
 		local data = {}
 
@@ -207,6 +211,10 @@ if (SERVER) then
 		end
 
 		nut.data.set("dispensers", data)
+	end
+
+	function SCHEMA:loadObjectives()
+		self.objectives = nut.data.get("objectives", "", false, true)
 	end
 
 	function SCHEMA:loadVendingMachines()
