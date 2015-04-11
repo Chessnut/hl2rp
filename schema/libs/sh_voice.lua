@@ -38,58 +38,60 @@ function nut.voice.getVoiceList(class, text, delay)
 	local exploded = string.Explode(" ", text:lower())
 	local phrase = ""
 	local skip = 0
+	local current = 0
 
 	max = max or 5
 
 	for k, v in ipairs(exploded) do
-		if (k > max) then
-			break
-		end
-
 		if (k < skip) then
 			continue
 		end
 
-		local i = k
-		local key = v
+		if (current < max) then
+			local i = k
+			local key = v
 
-		local nextValue, nextKey
+			local nextValue, nextKey
 
-		while (true) do
-			i = i + 1
-			nextValue = exploded[i]
-
-			if (!nextValue) then
-				break
-			end
-
-			nextKey = key.." "..nextValue
-
-			if (!info[nextKey]) then
+			while (true) do
 				i = i + 1
+				nextValue = exploded[i]
 
-				local nextValue2 = exploded[i]
-				local nextKey2 = nextKey.." "..(nextValue2 or "")
-
-				if (!nextValue2 or !info[nextKey2]) then
-					i = i - 1
-
+				if (!nextValue) then
 					break
 				end
 
-				nextKey = nextKey2
+				nextKey = key.." "..nextValue
+
+				if (!info[nextKey]) then
+					i = i + 1
+
+					local nextValue2 = exploded[i]
+					local nextKey2 = nextKey.." "..(nextValue2 or "")
+
+					if (!nextValue2 or !info[nextKey2]) then
+						i = i - 1
+
+						break
+					end
+
+					nextKey = nextKey2
+				end
+
+				key = nextKey
 			end
 
-			key = nextKey
+			if (info[key]) then
+				output[#output + 1] = {info[key].source, delay or 0.1}
+				phrase = phrase..info[key].replacement.." "
+				skip = i
+				current = current + 1
+
+				continue
+			end
 		end
 
-		if (info[key]) then
-			output[#output + 1] = {info[key].source, delay or 0.1}
-			phrase = phrase..info[key].replacement.." "
-			skip = i
-		else
-			phrase = phrase..original[k].." "
-		end
+		phrase = phrase..original[k].." "
 	end
 	
 	if (phrase:sub(#phrase, #phrase) == " ") then
