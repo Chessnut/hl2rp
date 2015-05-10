@@ -210,7 +210,7 @@ function SCHEMA:PlayerTick(client)
 	end
 end
 
-function SCHEMA:PlayerMessageSend(client, chatType, message, anonymous)
+function SCHEMA:PlayerMessageSend(client, chatType, message, anonymous, receivers)
 	if (!nut.voice.chatTypes[chatType]) then
 		return
 	end
@@ -237,6 +237,16 @@ function SCHEMA:PlayerMessageSend(client, chatType, message, anonymous)
 				netstream.Start(nil, "voicePlay", sounds, volume)
 			else
 				netstream.Start(nil, "voicePlay", sounds, volume, client:EntIndex())
+
+				if (chatType == "radio" and receivers) then
+					for k, v in pairs(receivers) do
+						if (receivers == client) then
+							continue
+						end
+
+						netstream.Start(nil, "voicePlay", sounds, volume * 0.5, v:EntIndex())
+					end
+				end
 			end
 
 			return message
