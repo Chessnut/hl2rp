@@ -82,7 +82,15 @@ function nut.voice.getVoiceList(class, text, delay)
 			end
 
 			if (info[key]) then
-				output[#output + 1] = {info[key].source, delay or 0.1}
+				local source = info[key].source
+				
+				if (type(source) == "table") then
+					source = table.Random(source)
+				else
+					source = tostring(source)
+				end
+				
+				output[#output + 1] = {source, delay or 0.1}
 				phrase = phrase..info[key].replacement.." "
 				skip = i
 				current = current + 1
