@@ -108,6 +108,10 @@ function ENT:OnRemove()
 		self.buzzer:Stop()
 		self.buzzer = nil
 	end
+
+	if (!nut.shuttingDown and !self.nutIsSafe) then
+		PLUGIN:saveForceFields()
+	end
 end
 
 local modes = {}
