@@ -361,7 +361,7 @@ else
 				flash.DieTime = CurTime() + 0.3
 
 				timer.Simple(0.05, function()
-					self.startPicture = true;
+					self.startPicture = true
 				end)
 			end
 		end
