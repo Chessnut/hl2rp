@@ -361,19 +361,7 @@ else
 				flash.DieTime = CurTime() + 0.3
 
 				timer.Simple(0.05, function()
-					local data = util.Compress(render.Capture({
-						format = "jpeg",
-						h = PICTURE_HEIGHT,
-						w = PICTURE_WIDTH,
-						quality = 35,
-						x = ScrW()*0.5 - PICTURE_WIDTH2,
-						y = ScrH()*0.5 - PICTURE_HEIGHT2
-					}))
-
-					net.Start("nutScannerData")
-						net.WriteUInt(#data, 16)
-						net.WriteData(data, #data)
-					net.SendToServer()
+					self.startPicture = true
 				end)
 			end
 		end
@@ -395,6 +383,26 @@ else
 		if (hidden) then
 			blackAndWhite["$pp_colour_brightness"] = 0.05 + math.sin(RealTime() * 10)*0.01
 			DrawColorModify(blackAndWhite)
+		end
+	end
+	
+	function PLUGIN:PostRender()
+		if (self.startPicture) then
+			local data = util.Compress(render.Capture({
+				format = "jpeg",
+				h = PICTURE_HEIGHT,
+				w = PICTURE_WIDTH,
+				quality = 35,
+				x = ScrW()*0.5 - PICTURE_WIDTH2,
+				y = ScrH()*0.5 - PICTURE_HEIGHT2
+			}))
+
+			net.Start("nutScannerData")
+				net.WriteUInt(#data, 16)
+				net.WriteData(data, #data)
+			net.SendToServer()
+			
+			self.startPicture = false
 		end
 	end
 
