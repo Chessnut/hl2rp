@@ -217,7 +217,7 @@ else
 					end
 				end
 
-				local item = activator:getChar():getInv():hasItem("cid")
+				local item = activator:getChar():getInv():getFirstItemOfType("cid")
 
 				if (!found) then
 					return self:error("INVALID ID")
