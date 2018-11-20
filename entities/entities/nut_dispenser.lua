@@ -217,7 +217,15 @@ else
 					end
 				end
 
-				local item = activator:getChar():getInv():getFirstItemOfType("cid")
+				local inventory = activator:getChar():getInv()
+				local item
+				if (inventory) then
+					if (inventory.getFirstItemOfType) then
+						item = inventory:getFirstItemOfType("cid")
+					else
+						item = inventory:hasItem("cid")
+					end
+				end
 
 				if (!found) then
 					return self:error("INVALID ID")
