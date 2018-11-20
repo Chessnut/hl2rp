@@ -96,6 +96,8 @@ function nut.voice.getVoiceList(class, text, delay)
 				current = current + 1
 
 				continue
+			else
+				return nil
 			end
 		end
 
