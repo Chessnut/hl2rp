@@ -13,6 +13,7 @@ ENT.PhysgunDisable = true
 function ENT:SetupDataTables()
 	self:NetworkVar("Bool", 0, "Locked")
 	self:NetworkVar("Bool", 1, "Erroring")
+	self:NetworkVar("Bool", 2, "Detonating")
 end
 
 function ENT:SpawnFunction(client, trace)
@@ -74,7 +75,9 @@ if (SERVER) then
 			return
 		end
 
-		if (hook.Run("PlayerCanUseLock", activator) != false) then
+		if (activator:KeyDown(IN_WALK)) then
+			self:detonate(activator)
+		elseif (hook.Run("PlayerCanUseLock", activator) != false) then
 			self:toggle()
 		end
 	end
@@ -152,6 +155,62 @@ if (SERVER) then
 		self:SetAngles(angles)
 		self:SetParent(door)
 	end
+
+	function ENT:detonate(client)
+		self:SetDetonating(true)
+		self.detonateStartTime = CurTime()
+		self.detonateEndTime = self.detonateStartTime + 10
+		self.explodeDir = client:GetAimVector() * 500
+	end
+
+	function ENT:ping()
+		self:SetErroring(true)
+		self:EmitSound("npc/turret_floor/ping.wav")
+
+		timer.Create("nutPing"..self:EntIndex(), 0.1, 1, function()
+			if (IsValid(self)) then
+				self:SetErroring(false)
+			end
+		end)
+	end
+
+	function ENT:Think()
+		if (not self:GetDetonating()) then return end
+		local curTime = CurTime()
+
+		if (self.detonateEndTime <= curTime) then
+			self:explode()
+			return
+		end
+
+		if ((self.nextPing or 0) >= curTime) then
+			return
+		end
+
+		local fraction = 1 - math.Clamp(math.TimeFraction(
+			self.detonateStartTime,
+			self.detonateEndTime,
+			curTime
+		), 0, 1)
+		self.nextPing = curTime + fraction
+		self:ping()
+	end
+
+	function ENT:explode()
+		local effect = EffectData()
+			effect:SetOrigin(self:GetPos())
+		util.Effect("Explosion", effect)
+
+		local entity = self:GetParent()
+		if (not IsValid(entity)) then return end
+
+		entity:EmitSound("physics/wood/wood_crate_break"..math.random(1, 5)..".wav", 150)
+		local direction = (self.explodeDir or VectorRand()):GetNormalized()
+		direction.z = 0
+		entity:blastDoor(direction * 400)
+
+		self:Remove()
+	end
 else
 	local glowMaterial = Material("sprites/glow04_noz")
 	local color_orange = Color(255, 125, 0)
@@ -163,12 +222,16 @@ else
 
 		local position = self:GetPos() + self:GetUp()*-8.7 + self:GetForward()*-3.85 + self:GetRight()*-6
 		local color = self:GetLocked() and color_orange or color_green
+		local size = 14
 
 		if (self:GetErroring()) then
 			color = color_red
+			size = 28
+		elseif (self:GetDetonating()) then
+			return
 		end
 
 		render.SetMaterial(glowMaterial)
-		render.DrawSprite(position, 14, 14, color)
+		render.DrawSprite(position, size, size, color)
 	end
 end
