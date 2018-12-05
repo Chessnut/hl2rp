@@ -14,7 +14,7 @@ SWEP.Purpose = "To hold a suitcase around."
 SWEP.Spawnable = true
 SWEP.AdminOnly = true
 
-SWEP.HoldType = "none"
+SWEP.HoldType = "normal"
 
 SWEP.ViewModelFOV = 47
 SWEP.ViewModelFlip = false
@@ -39,7 +39,7 @@ SWEP.LowerAngles = Angle(15, -10, -20)
 SWEP.IsAlwaysLowered = true
 
 function SWEP:Initialize()
-	self:SetHoldType("melee")
+	self:SetHoldType(self.HoldType)
 end
 
 function SWEP:GetViewModelPosition(position, angles)
