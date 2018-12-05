@@ -3,6 +3,10 @@ SCHEMA.introName = "Half-Life 2 Roleplay"
 SCHEMA.author = "Chessnut"
 SCHEMA.desc = "Under the Universal Union's rule."
 
+function SCHEMA:GetGameDescription()
+	return "NS - "..self.name
+end
+
 function SCHEMA:isCombineFaction(faction)
 	return faction == FACTION_CP or faction == FACTION_OW
 end
