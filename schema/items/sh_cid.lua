@@ -4,25 +4,50 @@ ITEM.model = "models/gibs/metal_gib4.mdl"
 ITEM.factions = {FACTION_CP, FACTION_ADMIN}
 ITEM.functions.Assign = {
 	onRun = function(item)
+		local client = item.player
+
 		local data = {}
-			data.start = item.player:EyePos()
-			data.endpos = data.start + item.player:GetAimVector()*96
-			data.filter = item.player
+			data.start = client:EyePos()
+			data.endpos = data.start + client:GetAimVector()*96
+			data.filter = client
 		local entity = util.TraceLine(data).Entity
 
 		if (IsValid(entity) and entity:IsPlayer() and entity:Team() == FACTION_CITIZEN) then
-			local status, result = item:transfer(entity:getChar():getInv():getID())
-
-			if (status) then
-				item:setData("name", entity:Name())
-				item:setData("id", math.random(10000, 99999))
-				
-				return true
-			else
-				item.player:notify(result)
+			if (not entity:getChar() or not entity:getChar():getInv()) then
+				client:notifyLocalized("plyNotValid")
+				return false
 			end
+
+			local name, id = entity:Name(), math.random(10000, 99999)
+			local function onSuccess(newCID)
+				newCID:setData("name", name)
+				newCID:setData("id", id)
+			end
+
+			local position = client:getItemDropPos()
+			local function onFail()
+				nut.item.spawn(item.uniqueID, position, onSuccess)
+			end
+
+			local x, y, itemID = entity:getChar():getInv():add(item.uniqueID)
+
+			-- New add method returns a promise (x) that resolves to the item.
+			if (nut.version) then
+				x:resolve(newCID):catch(onFail)
+				return true
+			end
+
+			-- Old call returns false if adding failed, otherwise it
+			-- returns the (x, y) coordinates and item ID.
+			if (x == false) then
+				onFail()
+			else
+				onSuccess(nut.item.instances[itemID])
+			end
+			return true
 		end
 
+		client:notifyLocalized("plyNotValid")
 		return false
 	end,
 	onCanRun = function(item)
