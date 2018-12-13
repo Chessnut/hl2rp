@@ -101,7 +101,7 @@ if (SERVER) then
 		end
 	end
 
-	netstream.Hook("searchExit", function(client)
+	function PLUGIN:stopSearching(client)
 		local target = client.nutSearchTarget
 
 		if (IsValid(target) and target:getNetVar("searcher") == client) then
@@ -113,9 +113,17 @@ if (SERVER) then
 
 			target:setNetVar("searcher", nil)
 			client.nutSearchTarget = nil
+
+			netstream.Start(client, "searchExit")
 		end
+	end
+
+	netstream.Hook("searchExit", function(client)
+		PLUGIN:stopSearching(client)
 	end)
 else
+	PLUGIN.searchPanels = PLUGIN.searchPanels or {}
+
 	function PLUGIN:CanPlayerViewInventory()
 		if (IsValid(LocalPlayer():getNetVar("searcher"))) then
 			return false
@@ -156,6 +164,9 @@ else
 
 			myInvPanel.x = myInvPanel.x + (myInvPanel:GetWide() * 0.5) + 2
 			targetInvPanel:MoveLeftOf(myInvPanel, 4)
+
+			PLUGIN.searchPanels[#PLUGIN.searchPanels + 1] = myInvPanel
+			PLUGIN.searchPanels[#PLUGIN.searchPanels + 1] = targetInvPanel
 		end)
 	else
 		netstream.Hook("searchPly", function(target, index)
@@ -168,6 +179,8 @@ else
 			nut.gui.inv1 = vgui.Create("nutInventory")
 			nut.gui.inv1:ShowCloseButton(true)
 			nut.gui.inv1:setInventory(LocalPlayer():getChar():getInv())
+
+			PLUGIN.searchPanels[#PLUGIN.searchPanels + 1] = nut.gui.inv1
 
 			local panel = vgui.Create("nutInventory")
 			panel:ShowCloseButton(true)
@@ -193,8 +206,18 @@ else
 			end
 
 			nut.gui["inv"..index] = panel	
+			PLUGIN.searchPanels[#PLUGIN.searchPanels + 1] = panel
 		end)
 	end
+
+	netstream.Hook("searchExit", function()
+		for _, panel in pairs(PLUGIN.searchPanels) do
+			if (IsValid(panel)) then
+				panel:Remove()
+			end
+		end
+		PLUGIN.searchPanels = {}
+	end)
 end
 
 nut.command.add("charsearch", {

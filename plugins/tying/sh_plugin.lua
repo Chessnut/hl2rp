@@ -32,6 +32,13 @@ if (SERVER) then
 			end)
 		end
 	end
+
+	function PLUGIN:OnPlayerUnRestricted(client)
+		local searcher = client:getNetVar("searcher")
+		if (IsValid(searcher)) then
+			self:stopSearching(searcher)
+		end
+	end
 else
 	local COLOR_TIED = Color(245, 215, 110)
 
