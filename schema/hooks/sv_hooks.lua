@@ -62,14 +62,15 @@ function SCHEMA:CanPlayerViewData(client, target)
 end
 
 function SCHEMA:PlayerUseDoor(client, entity)
-	if (client:isCombine()) then
+	local isAdminFaction = client:Team() == FACTION_ADMIN
+	if (client:isCombine() or isAdminFaction) then
 		local lock = entity.lock or (IsValid(entity:getDoorPartner()) and entity:getDoorPartner().lock)
 
 		if (IsValid(lock)) then
 			if (client:KeyDown(IN_SPEED)) then
 				lock:toggle()
 				return false
-			elseif (client:KeyDown(IN_WALK)) then
+			elseif (client:KeyDown(IN_WALK) and not isAdminFaction) then
 				lock:detonate(client)
 				return false
 			end
