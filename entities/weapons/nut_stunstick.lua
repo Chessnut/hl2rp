@@ -195,10 +195,10 @@ function SWEP:SecondaryAttack()
 			end
 
 			self.Owner:ViewPunch(Angle(-1.3, 1.8, 0))
-			self.Owner:EmitSound("physics/plastic/plastic_box_impact_hard"..math.random(1, 4)..".wav")	
+			self.Owner:EmitSound("d1_trainstation_03.breakin_doorknock", 125)
 			self.Owner:SetAnimation(PLAYER_ATTACK1)
 
-			self:SetNextSecondaryFire(CurTime() + 0.4)
+			self:SetNextSecondaryFire(CurTime() + 0.3)
 			self:SetNextPrimaryFire(CurTime() + 1)
 		elseif (entity:IsPlayer()) then
 			local direction = self.Owner:GetAimVector() * (300 + (self.Owner:getChar():getAttrib("str", 0) * 3))
