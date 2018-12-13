@@ -58,6 +58,8 @@ if (SERVER) then
 
 		target:getChar():getInv():addAccessRule(searcherCanAccess)
 		target.nutSearchAccessRule = searcherCanAccess
+
+		target:getChar():getInv():sync(client)
 	end
 
 	function PLUGIN:ns2RemoveInventorySearchPermissions(client, target)
