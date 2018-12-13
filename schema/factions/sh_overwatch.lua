@@ -3,7 +3,7 @@ FACTION.desc = "fOverwatchDesc"
 FACTION.color = Color(181, 94, 94)
 FACTION.isDefault = false
 FACTION.models = {
-	SCHEMA.owRankModels[SCHEMA.owDefaultRank][0]
+	"models/combine_soldier.mdl"
 }
 FACTION.pay = 30
 FACTION.isGloballyRecognized = true
