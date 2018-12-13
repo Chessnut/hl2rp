@@ -41,14 +41,12 @@ function SCHEMA:PostPlayerLoadout(client)
 					break
 				end
 			end
-
-			hook.Run("PlayerRankChanged", client)
-
 			client:SetArmor(50)
 		else
 			client:SetArmor(100)
 		end
 
+		hook.Run("PlayerRankChanged", client)
 		client:addDisplay("Local unit protection measures active at "..client:Armor().."%")
 
 		if (nut.plugin.list.scanner and client:isCombineRank(self.scnRanks)) then
@@ -88,13 +86,30 @@ function SCHEMA:PlayerSwitchFlashlight(client, enabled)
 end
 
 function SCHEMA:PlayerRankChanged(client)
-	for k, v in pairs(self.rankModels) do
+	local rankModels = client:Team() == FACTION_CP
+		and self.rankModels
+		or self.owRankModels
+	for k, v in pairs(rankModels) do
 		if (client:isCombineRank(k)) then
-			if (client:getChar()) then
-				client:getChar():setModel(v)
+			local model
+			local skin
+
+			if (istable(v)) then
+				model = v[1]
+				skin = v[2]
 			else
-				client:SetModel(v)
+				model = tostring(v)
 			end
+
+			if (client:getChar()) then
+				client:getChar():setModel(model)
+				if (skin) then
+					client:getChar():setData("skin", skin)
+				end
+			else
+				client:SetModel(model)
+			end
+			client:SetSkin(skin or 0)
 			break
 		end
 	end

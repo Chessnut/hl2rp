@@ -19,37 +19,18 @@ do
 	end
 
 	function playerMeta:getCombineRank()
+		local rankTables = SCHEMA.rankTables[self:Team()]
+		if (not rankTables) then return end
+
 		local name = self:Name()
 
-		for k, v in ipairs(SCHEMA.scnRanks) do
-			local rank = string.PatternSafe(v)
+		for _, ranks in ipairs(rankTables) do
+			for k, v in ipairs(ranks) do
+				local rank = string.PatternSafe(v)
 
-			if (name:find("[%D+]"..rank.."[%D+]")) then
-				return v
-			end
-		end
-
-		for k, v in ipairs(SCHEMA.rctRanks) do
-			local rank = string.PatternSafe(v)
-
-			if (name:find("[%D+]"..rank.."[%D+]")) then
-				return v
-			end
-		end
-
-		for k, v in ipairs(SCHEMA.unitRanks) do
-			local rank = string.PatternSafe(v)
-
-			if (name:find("[%D+]"..rank.."[%D+]")) then
-				return v
-			end
-		end
-
-		for k, v in ipairs(SCHEMA.eliteRanks) do
-			local rank = string.PatternSafe(v)
-
-			if (name:find("[%D+]"..rank.."[%D+]")) then
-				return v
+				if (name:find("[%D+]"..rank.."[%D+]")) then
+					return v
+				end
 			end
 		end
 	end

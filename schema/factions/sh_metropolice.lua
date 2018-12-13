@@ -29,14 +29,21 @@ end
 
 function FACTION:onTransfered(client, oldFaction)
 	local digits
-	local inventory = client:getChar():getInv()
-	if (inventory) then
-		for _, item in pairs(inventory:getItems()) do
-			if (item.uniqueID == "cid" and item:getData("id")) then
-				digits = item:getData("id")
-				break
+
+	if (oldFaction.index == FACTION_CITIZEN) then
+		local inventory = client:getChar():getInv()
+		if (inventory) then
+			for _, item in pairs(inventory:getItems()) do
+				if (item.uniqueID == "cid" and item:getData("id")) then
+					digits = item:getData("id")
+					break
+				end
 			end
 		end
+	elseif (oldFaction.index == FACTION_OW) then
+		digits = client:getDigits()
+	elseif (oldFaction.index == FACTION_CP) then
+		return
 	end
 
 	client:getChar():setName(self:onGetDefaultName(client, digits))

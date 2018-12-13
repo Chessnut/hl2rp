@@ -55,8 +55,9 @@ SCHEMA.painSounds[FACTION_OW] = {
 	"npc/combine_soldier/pain3.wav"
 }
 
--- Civil Protection name prefix.
+-- Combine name prefix.
 SCHEMA.cpPrefix = "CP-"
+SCHEMA.owPrefix = "OT-"
 
 -- How long the Combine digits are.
 SCHEMA.digitsLen = 5
@@ -66,6 +67,19 @@ SCHEMA.rctRanks = {"RCT"}
 SCHEMA.unitRanks = {"05", "04", "03", "02", "01", "OfC"}
 SCHEMA.eliteRanks = {"EpU", "DvL", "SeC"}
 SCHEMA.scnRanks = {"SCN", "CLAW.SCN"}
+SCHEMA.owRanks = {SCHEMA.owDefaultRank, "OWE", "OPG", "SGS", "SPG"}
+
+SCHEMA.owDefaultRank = "OWS"
+
+SCHEMA.rankTables = {
+	[FACTION_CP] = {
+		SCHEMA.rctRanks,
+		SCHEMA.unitRanks,
+		SCHEMA.eliteRanks,
+		SCHEMA.scnRanks
+	},
+	[FACTION_OW] = {SCHEMA.owRanks}
+}
 
 -- What model each rank should be.
 SCHEMA.rankModels = {
@@ -77,6 +91,14 @@ SCHEMA.rankModels = {
 	["SeC"] = "models/dpfilms/metropolice/phoenix_police.mdl",
 	["SCN"] = "models/combine_scanner.mdl",
 	["CLAW.SCN"] = "models/shield_scanner.mdl"
+}
+
+SCHEMA.owRankModels = {
+	[SCHEMA.owDefaultRank] = {"models/combine_soldier.mdl", 0},
+	["OWE"] = {"models/combine_super_soldier.mdl", 0},
+	["OPG"] = {"models/combine_soldier_prisonguard.mdl", 0},
+	["SGS"] = {"models/combine_soldier.mdl", 1},
+	["SPG"] = {"models/combine_soldier_prisonguard.mdl", 1},
 }
 
 -- The default player data when using /data
