@@ -14,7 +14,11 @@ nut.command.add("doorkick", {
 					timer.Simple(0.75, function()
 						if (IsValid(client) and IsValid(entity)) then
 							entity:EmitSound("physics/wood/wood_crate_break"..math.random(1, 5)..".wav", 150)
-							entity:blastDoor(aimVector * (360 + client:getChar():getAttrib("str", 0)*5))
+
+							local force = aimVector * (360 + client:getChar():getAttrib("str", 0)*5)
+							force.z = 0
+
+							entity:blastDoor(force, 60)
 						end
 					end)
 				end
