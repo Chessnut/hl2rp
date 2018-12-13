@@ -121,3 +121,9 @@ netstream.Hook("voicePlay", function(sounds, volume, index)
 		nut.util.emitQueuedSounds(LocalPlayer(), sounds, nil, nil, volume)
 	end
 end)
+
+timer.Create("CombineDisplayClear", 10, 0, function()
+	if (#SCHEMA.displays > 0) then
+		table.remove(SCHEMA.displays, 1)
+	end
+end)
