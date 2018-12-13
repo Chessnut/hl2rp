@@ -25,7 +25,8 @@ ITEM.functions.Assign = {
 			end
 
 			local position = client:getItemDropPos()
-			local function onFail()
+			local function onFail(err)
+				print(err)
 				nut.item.spawn(item.uniqueID, position, onSuccess)
 			end
 
@@ -33,7 +34,7 @@ ITEM.functions.Assign = {
 
 			-- New add method returns a promise (x) that resolves to the item.
 			if (nut.version) then
-				x:resolve(newCID):catch(onFail)
+				x:next(onSuccess):catch(onFail)
 				return true
 			end
 
