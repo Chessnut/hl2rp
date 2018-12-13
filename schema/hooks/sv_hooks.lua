@@ -90,7 +90,12 @@ end
 function SCHEMA:PlayerRankChanged(client)
 	for k, v in pairs(self.rankModels) do
 		if (client:isCombineRank(k)) then
-			client:SetModel(v)
+			if (client:getChar()) then
+				client:getChar():setModel(v)
+			else
+				client:SetModel(v)
+			end
+			break
 		end
 	end
 end
@@ -151,7 +156,14 @@ function SCHEMA:GetPlayerDeathSound(client)
 			end
 		end
 
-		self:addDisplay("lost bio-signal for protection team unit "..digits.." at unknown location", Color(255, 0, 0))
+		local location = "unknown location"
+		if (nut.area and client.getArea) then
+			local area = nut.area.getArea(client:getArea())
+			if (area) then
+				location = area.name or location
+			end
+		end
+		self:addDisplay("lost bio-signal for protection team unit "..digits.." at "..location, Color(255, 0, 0))
 
 		return table.Random(sounds)
 	end
