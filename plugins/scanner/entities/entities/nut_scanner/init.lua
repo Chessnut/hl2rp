@@ -223,6 +223,10 @@ function ENT:handlePilotMove()
     end
 
     pilot:SetPos(self:GetPos())
+
+    if (pilot:GetMoveType() ~= MOVETYPE_NONE) then
+        pilot:SetMoveType(MOVETYPE_NONE)
+    end
 end
 
 function ENT:discourageHitGround()
