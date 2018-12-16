@@ -84,6 +84,10 @@ function SCHEMA:PlayerUseDoor(client, entity)
 end
 
 function SCHEMA:PlayerSwitchFlashlight(client, enabled)
+	if (nut.plugin.list.scanner) then
+		return
+	end
+	
 	if (client:isCombine()) then
 		return true
 	end
