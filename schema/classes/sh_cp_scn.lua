@@ -6,12 +6,14 @@ function CLASS:onCanBe(client)
 	return client:isCombineRank(SCHEMA.scnRanks)
 end
 
-
 function CLASS:onSet(client)
 	local scanner = nut.plugin.list.scanner
 
 	if (scanner) then
-		scanner:createScanner(client, client:getCombineRank() == "CLAW.SCN" and "npc_clawscanner" or nil)
+		scanner:createScanner(
+			client,
+			client:getCombineRank() == "CLAW.SCN"
+		)
 	else
 		client:ChatPrint("The server is missing the 'scanner' plugin.")
 	end

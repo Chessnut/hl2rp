@@ -25,11 +25,9 @@ do
 		local name = self:Name()
 
 		for _, ranks in ipairs(rankTables) do
-			for k, v in ipairs(ranks) do
-				local rank = string.PatternSafe(v)
-
-				if (name:find("[%D+]"..rank.."[%D+]")) then
-					return v
+			for _, rank in ipairs(ranks) do
+				if (name:find(rank, 1, true)) then
+					return rank
 				end
 			end
 		end
@@ -39,11 +37,9 @@ do
 		if (type(rank) == "table") then
 			local name = self:Name()
 
-			for k, v in ipairs(rank) do
-				local rank = string.PatternSafe(v)
-
-				if (name:find("[%D+]"..rank.."[%D+]")) then
-					return v
+			for _, rank in ipairs(rank) do
+				if (name:find(rank, 1, true)) then
+					return rank
 				end				
 			end
 

@@ -66,7 +66,7 @@ SCHEMA.digitsLen = 5
 SCHEMA.rctRanks = {"RCT"}
 SCHEMA.unitRanks = {"05", "04", "03", "02", "01", "OfC"}
 SCHEMA.eliteRanks = {"EpU", "DvL", "SeC"}
-SCHEMA.scnRanks = {"SCN", "CLAW.SCN"}
+SCHEMA.scnRanks = {"CLAW.SCN", "SCN"}
 SCHEMA.owRanks = {SCHEMA.owDefaultRank, "OWE", "OPG", "SGS", "SPG"}
 
 SCHEMA.owDefaultRank = "OWS"

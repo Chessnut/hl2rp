@@ -50,7 +50,10 @@ function SCHEMA:PostPlayerLoadout(client)
 		client:addDisplay("Local unit protection measures active at "..client:Armor().."%")
 
 		if (nut.plugin.list.scanner and client:isCombineRank(self.scnRanks)) then
-			nut.plugin.list.scanner:createScanner(client, client:getCombineRank() == "CLAW.SCN" and "npc_clawscanner" or nil)
+			nut.plugin.list.scanner:createScanner(
+				client,
+				client:getCombineRank() == "CLAW.SCN"
+			)
 		end
 	end
 end
