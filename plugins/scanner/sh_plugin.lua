@@ -2,13 +2,13 @@ PLUGIN.name = "Player Scanners Util"
 PLUGIN.author = "Chessnut"
 PLUGIN.desc = "Adds functions that allow players to control scanners."
 
-nut.config.add({
+nut.config.add(
 	"pictureDelay",
 	15,
 	"How often scanners can take pictures.",
 	nil,
 	{category = PLUGIN.name}
-})
+)
 
 if (CLIENT) then
 	PLUGIN.PICTURE_WIDTH = 580
