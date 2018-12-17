@@ -19,11 +19,17 @@ ITEM.functions.Open = {
 		local position = item.player:getItemDropPos()
 		local client = item.player
 
-		for k, v in pairs(item.items) do
-			if (IsValid(client) and client:getChar() and !client:getChar():getInv():add(v)) then
-				nut.item.spawn(v, position)
+		timer.Simple(0, function()
+			for k, v in pairs(item.items) do
+				if (
+					IsValid(client) and
+					client:getChar() and
+					not client:getChar():getInv():add(v)
+				) then
+					nut.item.spawn(v, position)
+				end
 			end
-		end
+		end)
 
 		client:getChar():giveMoney(math.random(item.money[1], item.money[2]))
 	end
