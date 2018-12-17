@@ -13,8 +13,9 @@
     along with NutScript.  If not, see <http://www.gnu.org/licenses/>.
 --]]
 
-ITEM.name = "A Rocket"
+ITEM.name = "Rocket"
 ITEM.model = "models/weapons/w_missile_closed.mdl"
+ITEM.price = 150
 ITEM.ammo = "rpg_round" // type of the ammo
 ITEM.ammoAmount = 1 // amount of the ammo
 ITEM.width = 2
@@ -25,4 +26,4 @@ ITEM.iconCam = {
 	pos	= Vector(7, 200, -2)
 }
 ITEM.category = "Ammunition"
-ITEM.flag = "y"
+ITEM.flag = "Y"

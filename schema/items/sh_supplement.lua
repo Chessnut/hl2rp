@@ -1,12 +1,11 @@
-ITEM.name = "Water"
-ITEM.desc = "A blue can of plain water."
-ITEM.model = "models/props_junk/popcan01a.mdl"
-ITEM.healthRestore = 10
+ITEM.name = "Food Supplement"
+ITEM.desc = "A jar of gray substance, packed with a third of a day's nutrients."
+ITEM.model = "models/props_lab/jar01b.mdl"
+ITEM.healthRestore = 25
+ITEM.restore = 75
 ITEM.category = "consumables"
-ITEM.restore = 33
-ITEM.price = 10
-ITEM.functions.Drink = {
-	icon = "icon16/cup.png",
+ITEM.price = 30
+ITEM.functions.Use = {
 	sound = "items/battery_pickup.wav",
 	onRun = function(item)
 		item.player:SetHealth(math.min(item.player:Health() + item.restore, 100))

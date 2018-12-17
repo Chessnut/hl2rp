@@ -5,6 +5,7 @@ ITEM.healthRestore = 20
 ITEM.restore = 100
 ITEM.category = "consumables"
 ITEM.skin = 1
+ITEM.price = 20
 ITEM.functions.Drink = {
 	icon = "icon16/cup.png",
 	sound = "items/battery_pickup.wav",

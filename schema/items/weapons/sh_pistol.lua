@@ -27,3 +27,5 @@ ITEM.iconCam = {
 	fov	= 5.0470897275697,
 	pos	= Vector(0, 200, -1)
 }
+ITEM.classes = {CLASS_CP_UNIT, CLASS_CP_ELITE}
+ITEM.factions = {FACTION_OW}

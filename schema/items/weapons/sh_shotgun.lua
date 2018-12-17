@@ -26,4 +26,6 @@ ITEM.iconCam = {
     ang = Angle(0, 270, 0),
     fov = 10
 }
-ITEM.flag = "y"
+ITEM.flag = "Y"
+ITEM.classes = {CLASS_CP_ELITE}
+ITEM.factions = {FACTION_OW}

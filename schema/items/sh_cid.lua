@@ -1,6 +1,7 @@
 ITEM.name = "Citizen ID"
 ITEM.desc = "A flat piece of plastic for identification."
 ITEM.model = "models/gibs/metal_gib4.mdl"
+ITEM.price = 50
 ITEM.factions = {FACTION_CP, FACTION_ADMIN}
 ITEM.functions.Assign = {
 	onRun = function(item)
