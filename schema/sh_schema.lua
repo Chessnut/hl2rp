@@ -38,7 +38,7 @@ do
 			local name = self:Name()
 
 			for _, rank in ipairs(rank) do
-				if (name:find(rank, 1, true)) then
+				if (name:find(rank..".", 1, true)) then
 					return rank
 				end				
 			end

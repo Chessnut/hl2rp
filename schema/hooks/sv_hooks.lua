@@ -126,7 +126,7 @@ end
 function SCHEMA:OnCharVarChanged(character, key, oldValue, value)
 	if (key == "name" and IsValid(character:getPlayer()) and character:getPlayer():isCombine()) then
 		for k, v in ipairs(nut.class.list) do
-			if (character:joinClass(k)) then
+			if (character:joinClass(k, true)) then
 				break
 			end
 		end
