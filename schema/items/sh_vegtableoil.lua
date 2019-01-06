@@ -1,4 +1,4 @@
-ITEM.name = "Vegtable Oil"
+ITEM.name = "Vegetable Oil"
 ITEM.desc = "Often used for cooking food."
 ITEM.price = 20
 ITEM.model = Model("models/props_junk/garbage_plasticbottle002a.mdl")
